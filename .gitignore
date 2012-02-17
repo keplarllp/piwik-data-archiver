@@ -1,0 +1,12 @@
+.idea/
+.manager/
+workspace.xml
+*.iml
+bin/
+docs/
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+private.conf
