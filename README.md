@@ -18,23 +18,26 @@ Note that you use Phive at your own risk - Orderly Ltd takes no responsibility f
 
 ### 1. Before you Start
 
+To make full use of Phive, you will need:
 
+* A running Piwik installation
+* Access to your your Piwik MySQL database
+* An Amazon S3 account
+* A working Hive installation (e.g. on Amazon Elastic MapReduce)
 
 ### 2. Setup MySQL Access
 
-We recommend setting up a dedicated MySQL user account for Phive, and only granting the user `SELECT` (i.e. read-only) permissions on the five tables that Phive needs to read.
+Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that Phive needs to read:
 
-The following MySQL commands will setup a Phive user with the minimum permissions:
-
-    -- Create the phive user
+    -- Create the Phive user
     CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
 
-    -- Set the phive user's permissions
-    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
+    -- Set the Phive user's permissions
+    GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
 
 ## Usage
 
@@ -57,6 +60,7 @@ limitations under the License.
 
 [phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.jpg
 [piwik]: http://piwik.org
+[issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
 [hive]: http://hive.apache.org/
