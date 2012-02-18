@@ -4,48 +4,31 @@
 
 ## Overview
 
-Phive is a command-line app which dumps your [Piwik] [piwik] log data to .csv files and uploads these files to [Amazon S3] [s3] ready for you to analyze using [Apache Hive] [hive]. For performance reasons, Phive talks directly The MWS Products API] [apidoc] to check your competitors' prices on Amazon Marketplace. Dutch is written in Scala.
+Phive (Piwik Export to Hive) is a command-line tool which dumps your [Piwik] [piwik] log data to .csv files and then uploads these files to [Amazon S3] [s3] ready for you to analyze using [Apache Hive] [hive]. Phive is written in Scala.
 
 ## Health Warning
 
-Phive talks directly to your Piwik database. While all operations are non-destructive, we strongly recommend creating a dedicated user account in MySQL for Phive, and giving this Phive user only the following permissions:
+For performance reasons, Phive talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
 
-< TODO >
+While all operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for Phive, and giving this Phive user only the following permissions:
 
-You use Phive at your own risk - Orderly Ltd takes no responsibility for any loss of data incurred through the use of Phive.
+    -- Create the phive user
+    CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
+
+    -- Set the phive user's permissions
+    GRANT ALL PRIVILEGES ON `xxx` . `log\_xxx` TO 'phive'@'localhost' WITH GRANT OPTION;
+
+Note that you use Phive at your own risk - Orderly Ltd takes no responsibility for any loss of data incurred through the use of Phive.
 
 ## Usage
 
 Usage of Phive is as per the command-line help:
 
-    phive: Version 0.1. Copyright (c) 2012, Orderly Ltd.
-
-    Usage: phive [OPTIONS]
-
-    OPTIONS
-    -c filename
-    --config filename  Configuration file. Defaults to "resources/example.conf"
-                       (within .jar) if not set
-    -n
-    --noheader         Flags that input CSV file(s) does not have a header row
-    -q char
-    --quote char       Quote character to use for CSVs (defaults to ")
-    -s sep
-    --separator sep    Separator character to use for CSVs (defaults to ,). Use \t
-                       for tab
-
-    PARAMETERS
-    outputfile  Output CSV file to write
-    input       Input CSV file(s) to read. If not specified, uses stdin (May be
-                specified multiple times.)
+    TODO
 
 ## Copyright and License
 
-Dutch uses the Marketplace Web Service Products Java Library, copyright
-2008 [Amazon Technologies, Inc](http://www.amazon.com/). You can find this
-library in the `/lib` sub-directory.
-
-The rest of Dutch is copyright 2012 Orderly Ltd. 
+Phive is copyright 2012 Orderly Ltd.
 
 Licensed under the [Apache License, Version 2.0] [license] (the "License");
 you may not use this software except in compliance with the License.
@@ -56,7 +39,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[dutch]: https://github.com/datascience/dutch/raw/master/doc/schultz.jpg
-[apidoc]: https://developer.amazonservices.com/gp/mws/api.html/192-0013333-8270332?ie=UTF8&section=products&group=products&version=latest
-[amazon]: http://www.amazon.com/
+[phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.jpg
+[piwik]: http://piwik.org
+[schema]: http://piwik.org/docs/plugins/database-schema/
+[s3]: http://aws.amazon.com/s3/
+[hive]: http://hive.apache.org/
 [license]: http://www.apache.org/licenses/LICENSE-2.0
