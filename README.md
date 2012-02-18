@@ -10,13 +10,17 @@ Phive (Piwik Export to Hive) is a command-line tool which dumps your [Piwik] [pi
 
 For performance reasons, Phive talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
 
-While all operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for Phive, and giving this Phive user only the following permissions:
+While all Phive database operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for Phive, and giving this Phive user only the bare-minimum of permissions:
 
     -- Create the phive user
     CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
 
     -- Set the phive user's permissions
-    GRANT ALL PRIVILEGES ON `xxx` . `log\_xxx` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
 
 Note that you use Phive at your own risk - Orderly Ltd takes no responsibility for any loss of data incurred through the use of Phive.
 
