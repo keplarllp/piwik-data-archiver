@@ -36,8 +36,8 @@ Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e
     GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
     GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
     GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRANT OPTION;
+    GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
 
 ## Usage
 
