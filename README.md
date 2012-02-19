@@ -27,7 +27,7 @@ To make full use of Phive, you will need:
 
 ### 2. Download Phive
 
-To write
+    // TODO
 
 ### 3. Setup MySQL Access
 
@@ -85,12 +85,13 @@ This command processes all of your Piwik data up until the end of **yesterday** 
 
 Once you have uploaded your historical Piwik data to S3, you can setup a daily `cronjob` to export each day's new Piwik log file data to S3. To do this:
 
+    // TODO
 
 ## Full Usage Instructions
 
 The full capabilities of Phive are as per per the command-line usage:
 
-    TODO
+    // TODO
 
 ## Copyright and License
 
