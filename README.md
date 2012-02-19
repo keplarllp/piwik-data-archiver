@@ -30,40 +30,40 @@ To make full use of Phive, you will need:
 Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that Phive needs to read:
 
 ```mysql
-    -- Create the Phive user
-    CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
+-- Create the Phive user
+CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
 
-    -- Set the Phive user's permissions
-    GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRANT OPTION;
-    GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
+-- Set the Phive user's permissions
+GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'phive'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
 ```
 
 ### 3. Setup your Configuration File
 
 Next you need to create a configuration file for Phive, setting both your Piwik MySQL and Amazon S3 connection details:
 
-```json
-	###############################
-	# Phive Default Configuration #
-	###############################
+```python
+#######################
+# Phive Configuration #
+#######################
 
-	phive {
-	  db {
-	    username: ""
-	    password: ""
-	    server:   ""
-	    port:     ""
-	    database: ""
-	  }
-	  s3 {
-	    key:      ""
-	    secret:   ""
-	    bucket:   ""
-	  }
-	}
+phive {
+  db {
+    username: ""
+    password: ""
+    server:   ""
+    port:     ""
+    database: ""
+  }
+  s3 {
+    key:      ""
+    secret:   ""
+    bucket:   ""
+  }
+}
 ```
 
 ## Usage
@@ -87,7 +87,7 @@ limitations under the License.
 
 [phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.png
 [piwik]: http://piwik.org
-[issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
+[issue1]: #1
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
 [hive]: http://hive.apache.org/
