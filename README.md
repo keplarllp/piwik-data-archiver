@@ -41,9 +41,15 @@ GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRA
 GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
 ```
 
-### 3. Setup your Configuration File
+### 3. Download Phive
 
-Next you need to create a configuration file for Phive, setting both your Piwik MySQL and Amazon S3 connection details:
+To write
+
+### 4. Setup your Configuration File
+
+Next you need to create a configuration file for Phive, setting both your Piwik MySQL and Amazon S3 connection details. You can find a template configuration file within the .zip file.
+
+Here is an example configuration:
 
 ```python
 #######################
@@ -65,10 +71,17 @@ phive {
   }
 }
 ```
+### 5. Run Phive against your Historic Piwik Data
 
-## Usage
+You can run Phive against your Piwik data collected to-date using this command: 
 
-Usage of Phive is as per the command-line help:
+```bash
+./phive -c phive.conf -t historic
+```
+
+## Full Usage Instructions
+
+The full capabilities of Phive are as per per the command-line usage:
 
     TODO
 
