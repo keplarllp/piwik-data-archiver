@@ -24,6 +24,7 @@ object Dependencies {
     val argot     = "0.3.5"
     val opencsv   = "2.0"
     val specs2    = "1.8"
+    val jets3t	  = "0.8.1"
   }
 
   object Libraries {
@@ -35,5 +36,8 @@ object Dependencies {
     val opencsv     = "net.sf.opencsv"             %  "opencsv"              % V.opencsv
     // Used for testing
     val specs2      = "org.specs2"                 %% "specs2"               % V.specs2      % "test"
+    // Used for S3 upload
+    val jets3t      = "net.java.dev.jets3t"        %  "jets3t"               % V.jets3t
+
   }
 }

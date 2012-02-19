@@ -31,7 +31,8 @@ object PhiveBuild extends Build {
         Libraries.argot,
         Libraries.config,
         Libraries.opencsv,
-        Libraries.specs2
+        Libraries.specs2,
+        Libraries.jets3t
       )
     )
 }
