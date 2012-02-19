@@ -58,7 +58,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.jpg
+[phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.png
 [piwik]: http://piwik.org
 [issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
 [schema]: http://piwik.org/docs/plugins/database-schema/
