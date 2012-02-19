@@ -76,8 +76,15 @@ phive {
 You can run Phive against your Piwik data collected to-date using this command: 
 
 ```bash
-./phive -c phive.conf -t historic
+./phive --config phive.conf --period historic
 ```
+
+This command processes all of your Piwik data up until the end of **yesterday** (based on your host computer's clock). Today's data is ignored because the log files for today will be as yet incomplete.
+
+### 6. Setup a daily Phive job
+
+Once you have uploaded your historical Piwik data to S3, you can setup a daily `cronjob` to export each day's new Piwik log file data to S3. To do this:
+
 
 ## Full Usage Instructions
 
