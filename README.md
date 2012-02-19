@@ -25,7 +25,11 @@ To make full use of Phive, you will need:
 * An Amazon S3 account
 * A working Hive installation (e.g. on Amazon Elastic MapReduce)
 
-### 2. Setup MySQL Access
+### 2. Download Phive
+
+To write
+
+### 3. Setup MySQL Access
 
 Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that Phive needs to read:
 
@@ -40,10 +44,6 @@ GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost'
 GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRANT OPTION;
 GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
 ```
-
-### 3. Download Phive
-
-To write
 
 ### 4. Setup your Configuration File
 
