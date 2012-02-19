@@ -29,6 +29,7 @@ To make full use of Phive, you will need:
 
 Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that Phive needs to read:
 
+```mysql
     -- Create the Phive user
     CREATE USER 'phive'@'localhost' IDENTIFIED BY '<password>';
 
@@ -38,6 +39,32 @@ Setup a dedicated MySQL user account for Phive, and grant the user `SELECT` (i.e
     GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'phive'@'localhost' WITH GRANT OPTION;
     GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'phive'@'localhost' WITH GRANT OPTION;
     GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'phive'@'localhost' WITH GRANT OPTION;
+```
+
+### 3. Setup your Configuration File
+
+Next you need to create a configuration file for Phive, setting both your Piwik MySQL and Amazon S3 connection details:
+
+```json
+	###############################
+	# Phive Default Configuration #
+	###############################
+
+	phive {
+	  db {
+	    username: ""
+	    password: ""
+	    server:   ""
+	    port:     ""
+	    database: ""
+	  }
+	  s3 {
+	    key:      ""
+	    secret:   ""
+	    bucket:   ""
+	  }
+	}
+```
 
 ## Usage
 
