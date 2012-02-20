@@ -108,7 +108,7 @@ limitations under the License.
 
 [phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.png
 [piwik]: http://piwik.org
-[issue1]: #1
+[issue1]: [#1]
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
 [hive]: http://hive.apache.org/
