@@ -27,8 +27,8 @@ import com.typesafe.config.{Config, ConfigFactory}
  * to export Piwik data for
  */
 object TimePeriod extends Enumeration {
- val HISTORIC = Value("historic")
- val YESTERDAY = Value("yesterday")
+  val HISTORIC = Value("historic")
+  val YESTERDAY = Value("yesterday")
 }
 
 /**
