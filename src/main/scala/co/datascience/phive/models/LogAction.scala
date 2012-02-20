@@ -13,14 +13,23 @@
 package co.datascience.phive
 package models
 
-// Scalaz
-import scalaz._
-import Scalaz._
-
-case class xxx(
-  name: String,         // Name of this merchant's company
-  active: Boolean       // Is this merchant currently active?
-  ) extends Model { // TODO: add active: Boolean to merchant (so we can switch 'em off)
-
-  // def this() = this(∅[String], ∅[Boolean]) // TODO: remove when 0.9.5 comes out
-}
+/*
+-- ----------------------------
+-- Table structure for `piwik_log_action`
+-- ----------------------------
+DROP TABLE IF EXISTS `piwik_log_action`;
+CREATE TABLE `piwik_log_action` (
+  `idaction` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `hash` int(10) unsigned NOT NULL,
+  `type` tinyint(3) unsigned DEFAULT NULL,
+  PRIMARY KEY (`idaction`),
+  KEY `index_type_hash` (`type`,`hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ */
+case class LogAction(
+  idaction: Long,
+  name:     Option[String],
+  hash:     Long,
+  `type`:   Int
+  )

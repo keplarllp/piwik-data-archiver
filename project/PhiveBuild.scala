@@ -32,7 +32,10 @@ object PhiveBuild extends Build {
         Libraries.config,
         Libraries.opencsv,
         Libraries.specs2,
-        Libraries.jets3t
+        Libraries.jets3t,
+        Libraries.squeryl,
+        Libraries.mysql,
+        Libraries.jtds
       )
     )
 }
