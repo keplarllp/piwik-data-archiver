@@ -70,7 +70,6 @@ object PhiveApp {
                                            "Flags that the generated .csv files should not be uploaded to S3")
 
   // Optional time period
-  // TODO: make this return an enum instead
   val period = parser.option[TimePeriod.Value](List("p", "period"),
                                                     "time",
                                                     "Time period of data to extract. Either \"yesterday\" or \"historic\"") {
