@@ -93,9 +93,9 @@ object PhiveApp {
       parser.parse(args)
 
       // Run the Piwik export and upload
-      Phive(config = config.value.getOrElse(ConfigFactory.load("default")),    // Fall back to the /resources/default.conf
-           period = period.value.getOrElse(TimePeriod.withName("yesterday")), // Default to yesterday's data
-           upload = !(noUpload.value.getOrElse(false))                        // Default to upload = true
+      Phive(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
+           period = period.value.getOrElse(TimePeriod.YESTERDAY),          // Default to yesterday's data
+           upload = !(noUpload.value.getOrElse(false))                     // Default to upload = true
       ).run()
     } catch {
       case e: ArgotUsageException => println(e.message)
