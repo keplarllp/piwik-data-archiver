@@ -43,11 +43,15 @@ case class Phive(config: Config,
                                                     db.getString("port"),
                                                     db.getString("database"))
 
-    // From the s3 section
-    private val s3 = phive.getConfig("s3")
-    val key        = s3.getString("key")
-    val secret     = s3.getString("secret")
-    val bucket     = s3.getString("bucket")
+    // From the export section
+    private val export = phive.getConfig("export")
+    val folder         = export.getString("folder")
+
+    // From the upload section
+    private val upload = phive.getConfig("upload")
+    val key            = upload.getString("key")
+    val secret         = upload.getString("secret")
+    val bucket         = upload.getString("bucket")
   }
 
   // Instantiate our schema with the appropriate table prefix
