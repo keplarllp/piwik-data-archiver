@@ -8,7 +8,7 @@ Phive (Piwik Export to Hive) is a command-line tool which dumps your [Piwik] [pi
 
 ## Health Warning
 
-For performance reasons, Phive talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for this GitHub issue: #1
+For performance reasons, Phive talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
 
 While all Phive database operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for Phive, and giving this Phive user only the bare-minimum permissions.
 
@@ -108,6 +108,7 @@ limitations under the License.
 
 [phive]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.png
 [piwik]: http://piwik.org
+[issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
 [hive]: http://hive.apache.org/
