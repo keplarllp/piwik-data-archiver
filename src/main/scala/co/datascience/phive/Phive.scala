@@ -15,11 +15,14 @@ package co.datascience.phive
 // Config
 import com.typesafe.config.Config
 
+// Phive
+import co.datascience.phive.models._
+
 /**
  * Phive performs the Piwik data export and upload
  */
 case class Phive(config: Config,
-                 period: String,
+                 period: TimePeriod.Value,
                  upload: Boolean) {
 
   /**
@@ -36,10 +39,9 @@ case class Phive(config: Config,
     val username   = db.getString("username")
     val password   = db.getString("password")
     val prefix     = db.getString("prefix")
-    private val database = db.getString("database")
-    private val server   = db.getString("server")
-    private val port     = db.getString("port")
-    val connection = "jdbc:mysql://%s:%s/%s".format(server, port, database)
+    val connection = "jdbc:mysql://%s:%s/%s".format(db.getString("server"),
+                                                    db.getString("port"),
+                                                    db.getString("database"))
 
     // From the s3 section
     private val s3 = phive.getConfig("s3")
@@ -48,8 +50,11 @@ case class Phive(config: Config,
     val bucket     = s3.getString("bucket")
   }
 
+  // Instantiate our schema with the appropriate table prefix
+  private val PrefixedSchema = PiwikSchema(PhiveConfig.prefix)
+
   /**
-   * Executes a pricing run
+   * Executes the export
    */
   def run() {
     Console.println("running!")

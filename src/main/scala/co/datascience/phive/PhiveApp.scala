@@ -14,12 +14,22 @@ package co.datascience.phive
 
 // Java
 import java.io.File
+import java.util.NoSuchElementException
 
 // Argot
 import org.clapper.argot._
 
 // Config
 import com.typesafe.config.{Config, ConfigFactory}
+
+/**
+ * Enum holding the different possible time periods
+ * to export Piwik data for
+ */
+object TimePeriod extends Enumeration {
+ val HISTORIC = Value("historic")
+ val YESTERDAY = Value("yesterday")
+}
 
 /**
  * Our entrypoint object for Phive.
@@ -61,17 +71,17 @@ object PhiveApp {
 
   // Optional time period
   // TODO: make this return an enum instead
-  val period = parser.option[String](List("p", "period"),
-                                          "time",
-                                          "Time period of data to extract. Either \"yesterday\" or \"historic\"") {
+  val period = parser.option[TimePeriod.Value](List("p", "period"),
+                                                    "time",
+                                                    "Time period of data to extract. Either \"yesterday\" or \"historic\"") {
     (p, opt) =>
 
-      // TODO: tidy this up
-      if (p != "yesterday" && p != "historic") {
-        parser.usage("Time period \"%s\" incorrect. Must be either \"yesterday\" or \"historic\"".format(p))
+      try {
+        TimePeriod.withName(p)
+      } catch {
+        case nsee: NoSuchElementException => parser.usage("Time period \"%s\" invalid. Must be either \"yesterday\" or \"historic\"".format(p))
+        case e => throw e // Rethrow any other error we get
       }
-
-      p
   }
 
   /**
@@ -84,9 +94,9 @@ object PhiveApp {
       parser.parse(args)
 
       // Run the Piwik export and upload
-      Phive(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
-           period = period.value.getOrElse("yesterday"),                   // Default to yesterday's data
-           upload = !(noUpload.value.getOrElse(true))                      // Default to upload
+      Phive(config = config.value.getOrElse(ConfigFactory.load("default")),    // Fall back to the /resources/default.conf
+           period = period.value.getOrElse(TimePeriod.withName("yesterday")), // Default to yesterday's data
+           upload = !(noUpload.value.getOrElse(false))                        // Default to upload = true
       ).run()
     } catch {
       case e: ArgotUsageException => println(e.message)

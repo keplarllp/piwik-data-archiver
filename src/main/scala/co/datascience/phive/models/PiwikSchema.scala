@@ -20,13 +20,13 @@ import PrimitiveTypeMode._
 /**
  * Squeryl schema definition for the Piwik log files
  */
-object PiwikSchema extends Schema {
+case class PiwikSchema(prefix: String) extends Schema {
 
   // Auto-translate Scala camelCase field names into lower_underscore field names
-  override def columnNameFromPropertyName(n:String) =
+  override def columnNameFromPropertyName(n: String) =
     SquerylNamingConventionTransforms.camelCase2LowerUnderscore(n)
 
   // Map classes to actual table names
-  val logAction = table[LogAction]("log_action") // TODO: somehow get prefix in here
+  val logAction = table[LogAction](this.prefix + "log_action") // TODO: somehow get prefix in here
   // TODO: add other 4 tables in here
 }
