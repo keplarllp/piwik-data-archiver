@@ -60,9 +60,11 @@ phive {
   db {
     username: ""
     password: ""
+    prefix:   ""
+    database: ""
     server:   ""
     port:     ""
-    database: ""
+
   }
   s3 {
     key:      ""
