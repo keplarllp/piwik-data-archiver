@@ -23,6 +23,10 @@ import org.squeryl.adapters.MySQLAdapter
 // opencsv
 import au.com.bytecode.opencsv._
 
+// Amazon S3
+import org.jets3t.service.security.AWSCredentials
+import org.jets3t.service.impl.rest.httpclient.RestS3Service
+
 // Phive
 import models.PiwikSchema
 import csv._
@@ -72,6 +76,10 @@ case class Phive(config: Config,
       java.sql.DriverManager.getConnection(PhiveConfig.connection, PhiveConfig.username, PhiveConfig.password), new MySQLAdapter)
   )
 
+  // Let's create our Amazon S3 client once
+  private val creds = new AWSCredentials(PhiveConfig.key, PhiveConfig.secret)
+  private val S3 = new RestS3Service(creds)
+
   /**
    * Executes the export
    */
@@ -89,7 +97,7 @@ case class Phive(config: Config,
 
     // Finally let's upload if required
     if (upload) {
-      // TODO
+      LogAction.uploadCsv(S3, PhiveConfig.bucket)
     }
   }
 }

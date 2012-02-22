@@ -14,7 +14,7 @@ package co.datascience.phive
 package csv
 
 // Java
-import java.io.FileWriter
+import java.io.{File, FileWriter}
 
 // opencsv
 import au.com.bytecode.opencsv._
@@ -22,7 +22,6 @@ import au.com.bytecode.opencsv._
 // Amazon S3
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.acl.{Permission, GroupGrantee, AccessControlList}
-import org.jets3t.service.security.AWSCredentials
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 /**
@@ -37,7 +36,8 @@ abstract class CsvFile {
   protected var writer: CSVWriter = _
 
   /**
-   * Initializes our CSVWriter object, writes out the appropriate header row and returns it
+   * Initializes our CSVWriter object, writes out the
+   * appropriate header row and returns it.
    */
   // TODO: add datestamping and location to the filename
   def initCsv() {
@@ -67,23 +67,18 @@ abstract class CsvFile {
   /**
    * Upload our CSV file.
    */
-  // TODO
+  def uploadCsv(s3: RestS3Service, bucket: String) {
 
-  /*
-      // Configure the S3 client
-      val creds = new AWSCredentials(Configuration.key, Configuration.secret)
-      val s3 = new RestS3Service(creds)
+    // Create the S3 object from the file
+    val file = new File(filename)
+    val s3Object = new S3Object(file)
 
-      // Create the S3 object from the file
-      val file = new File(feedFilename)
-      val `object` = new S3Object(file)
+    // Give the S3 object public ACL based on the owning bucket's ACL
+    val publicAcl: AccessControlList = s3.getBucketAcl(bucket)
+    publicAcl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ)
+    s3Object.setAcl(publicAcl)
 
-      // Give the S3 object public ACL based on the owning bucket's ACL
-      val publicAcl: AccessControlList = s3.getBucketAcl(Configuration.bucket)
-      publicAcl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ)
-      `object`.setAcl(publicAcl)
-
-      // Upload the file to the bucket
-      s3.putObject(Configuration.bucket, `object`)
-  */
+    // Upload the file to the bucket
+    s3.putObject(bucket, s3Object)
+  }
 }
