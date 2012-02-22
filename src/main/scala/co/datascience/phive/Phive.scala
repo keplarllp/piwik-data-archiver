@@ -15,8 +15,17 @@ package co.datascience.phive
 // Config
 import com.typesafe.config.Config
 
+// Squeryl
+import org.squeryl._
+import org.squeryl.PrimitiveTypeMode._
+import org.squeryl.adapters.MySQLAdapter
+
+// opencsv
+import au.com.bytecode.opencsv._
+
 // Phive
-import co.datascience.phive.models._
+import models.PiwikSchema
+import csv._
 
 /**
  * Phive performs the Piwik data export and upload
@@ -57,10 +66,30 @@ case class Phive(config: Config,
   // Instantiate our schema with the appropriate table prefix
   private val PrefixedSchema = PiwikSchema(PhiveConfig.prefix)
 
+  // Let's initialize the db connection once
+  Class.forName("com.mysql.jdbc.Driver")
+    SessionFactory.concreteFactory = Some(() => Session.create(
+      java.sql.DriverManager.getConnection(PhiveConfig.connection, PhiveConfig.username, PhiveConfig.password), new MySQLAdapter)
+  )
+
   /**
    * Executes the export
    */
   def run() {
-    Console.println("running!")
+
+    // First let's output the LogAction table. The simplest as there is no timestamping on this one
+    LogAction.initCsv()
+    inTransaction {
+      from (PrefixedSchema.logAction)(r => select(r)).toList foreach(la => LogAction.writeRow(la.toArray))
+    }
+	  LogAction.finalizeCsv()
+
+    // Now let's loop through and perform the same process with the other four tables...
+    // TODO
+
+    // Finally let's upload if required
+    if (upload) {
+      // TODO
+    }
   }
 }

@@ -32,4 +32,11 @@ case class LogAction(
   name:     Option[String],
   hash:     Long,
   `type`:   Int
-  )
+  ) {
+
+  /**
+   * A helper method, because opencsv expects to write an array to each line
+   */
+  def toArray: Array[String] =
+    Array(this.idaction.toString(), this.name.getOrElse(""), this.hash.toString(), this.`type`.toString())
+}
