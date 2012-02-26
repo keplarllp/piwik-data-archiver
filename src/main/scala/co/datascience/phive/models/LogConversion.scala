@@ -12,3 +12,103 @@
  */
 package co.datascience.phive
 package models
+
+// Java
+import java.util.{Date => JDate}
+import java.sql.{Timestamp => JTimestamp}
+
+/*
+-- ----------------------------
+-- Table structure for `piwik_log_conversion`
+-- ----------------------------
+DROP TABLE IF EXISTS `piwik_log_conversion`;
+CREATE TABLE `piwik_log_conversion` (
+  `idvisit` int(10) unsigned NOT NULL,
+  `idsite` int(10) unsigned NOT NULL,
+  `idvisitor` binary(8) NOT NULL,
+  `server_time` datetime NOT NULL,
+  `idaction_url` int(11) DEFAULT NULL,
+  `idlink_va` int(11) DEFAULT NULL,
+  `referer_visit_server_date` date DEFAULT NULL,
+  `referer_type` int(10) unsigned DEFAULT NULL,
+  `referer_name` varchar(70) DEFAULT NULL,
+  `referer_keyword` varchar(255) DEFAULT NULL,
+  `visitor_returning` tinyint(1) NOT NULL,
+  `visitor_count_visits` smallint(5) unsigned NOT NULL,
+  `visitor_days_since_first` smallint(5) unsigned NOT NULL,
+  `visitor_days_since_order` smallint(5) unsigned NOT NULL,
+  `location_country` char(3) NOT NULL,
+  `location_continent` char(3) NOT NULL,
+  `url` text NOT NULL,
+  `idgoal` int(10) NOT NULL,
+  `buster` int(10) unsigned NOT NULL,
+  `idorder` varchar(100) DEFAULT NULL,
+  `items` smallint(5) unsigned DEFAULT NULL,
+  `revenue` float DEFAULT NULL,
+  `revenue_subtotal` float DEFAULT NULL,
+  `revenue_tax` float DEFAULT NULL,
+  `revenue_shipping` float DEFAULT NULL,
+  `revenue_discount` float DEFAULT NULL,
+  `custom_var_k1` varchar(200) DEFAULT NULL,
+  `custom_var_v1` varchar(200) DEFAULT NULL,
+  `custom_var_k2` varchar(200) DEFAULT NULL,
+  `custom_var_v2` varchar(200) DEFAULT NULL,
+  `custom_var_k3` varchar(200) DEFAULT NULL,
+  `custom_var_v3` varchar(200) DEFAULT NULL,
+  `custom_var_k4` varchar(200) DEFAULT NULL,
+  `custom_var_v4` varchar(200) DEFAULT NULL,
+  `custom_var_k5` varchar(200) DEFAULT NULL,
+  `custom_var_v5` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idvisit`,`idgoal`,`buster`),
+  UNIQUE KEY `unique_idsite_idorder` (`idsite`,`idorder`),
+  KEY `index_idsite_datetime` (`idsite`,`server_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
+class LogConversion(private val idvisit: Int,
+                    private val idsite: Int,
+                    private val idvisitor: Array[Byte],
+                    private val serverTime: JTimestamp,
+                    private val idactionUrl: Option[Int],
+                    private val idlinkVa: Option[Int],
+                    private val refererVisitServerDate: Option[JDate],
+                    private val refererType: Option[Int],
+                    private val refererName: Option[String],
+                    private val refererKeyword: Option[String],
+                    private val visitorReturning: Boolean,
+                    private val visitorCountVisits: Int,
+                    private val visitorDaysSinceFirst: Int,
+                    private val visitorDaysSinceOrder: Int,
+                    private val locationCountry: String,
+                    private val locationContinent: String,
+                    private val url: String,
+                    private val idgoal: Int,
+                    private val buster: Int,
+                    private val idorder: Option[String],
+                    private val items: Int,
+                    private val revenue: Option[Float],
+                    private val revenueTax: Option[Float],
+                    private val revenueShipping: Option[Float],
+                    private val revenueDiscount: Option[Float],
+                    private val customVarK1: Option[String],
+                    private val customVarV1: Option[String],
+                    private val customVarK2: Option[String],
+                    private val customVarV2: Option[String],
+                    private val customVarK3: Option[String],
+                    private val customVarV3: Option[String],
+                    private val customVarK4: Option[String],
+                    private val customVarV4: Option[String],
+                    private val customVarK5: Option[String],
+                    private val customVarV5: Option[String]) extends Model {
+
+  /**
+  * Add all the fields to the array in the right order
+  */
+  def toArray: Array[String] = Array("TODO")
+
+   /* this.idvisit.toString(),
+  this.idsite.toString(),
+  new String(this.idvisitor),
+  this.serverTime.toString(),
+  this.idactionUrl.toString()                       */
+
+}

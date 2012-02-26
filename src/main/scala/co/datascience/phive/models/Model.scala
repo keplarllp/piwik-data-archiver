@@ -13,30 +13,14 @@
 package co.datascience.phive
 package models
 
-/*
--- ----------------------------
--- Table structure for `piwik_log_action`
--- ----------------------------
-DROP TABLE IF EXISTS `piwik_log_action`;
-CREATE TABLE `piwik_log_action` (
-  `idaction` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` text,
-  `hash` int(10) unsigned NOT NULL,
-  `type` tinyint(3) unsigned DEFAULT NULL,
-  PRIMARY KEY (`idaction`),
-  KEY `index_type_hash` (`type`,`hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
- */
-case class LogAction(
-  idaction: Int,
-  name:     Option[String],
-  hash:     Long,
-  `type`:   Int
-  ) extends Model {
+trait Model {
 
   /**
-   * Add all the fields to the array in the right order
+   * A helper method, because opencsv expects to write an array to each line
    */
-  def toArray: Array[String] =
-    Array(this.idaction, this.name, this.hash, this.`type`)
+  def toArray: Array[String]
+
+  implicit def int2CsvString(i: Int): String = i.toString
+  implicit def optionString2CsvString(os: Option[String]) = os.getOrElse("")
+  implicit def long2CsvString(l: Long): String = l.toString
 }
