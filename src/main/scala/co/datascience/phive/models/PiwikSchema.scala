@@ -23,12 +23,18 @@ import PrimitiveTypeMode._
 case class PiwikSchema(prefix: String) extends Schema {
 
   // Auto-translate Scala camelCase field names into lower_underscore field names
-  override def columnNameFromPropertyName(n: String) =
-    SquerylNamingConventionTransforms.camelCase2LowerUnderscore(n)
+  override def columnNameFromPropertyName(n: String) = camelCase2LowerUnderscore(n)
 
   // Map classes to actual table names
   val logAction = table[LogAction](this.prefix + "log_action")
   val logConversion = table[LogConversion](this.prefix + "log_conversion")
   val logConversionVisit = table[LogConversionVisit](this.prefix + "log_conversion_visit")
   // TODO: add other 2 tables in here
+
+  /**
+   * Naming convention transform for Squeryl.
+   * Changes a camelCasedField to a lowercased_field
+   */
+  private def camelCase2LowerUnderscore(name: String) =
+    name.toList.map(c => if(c.isUpper) "_" + c.toLower else c).mkString
 }
