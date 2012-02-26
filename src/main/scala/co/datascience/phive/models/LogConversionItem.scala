@@ -12,3 +12,68 @@
  */
 package co.datascience.phive
 package models
+
+// Java
+import java.sql.{Timestamp => JTimestamp}
+
+/*
+-- ----------------------------
+-- Table structure for `piwik_log_conversion_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `piwik_log_conversion_item`;
+CREATE TABLE `piwik_log_conversion_item` (
+  `idsite` int(10) unsigned NOT NULL,
+  `idvisitor` binary(8) NOT NULL,
+  `server_time` datetime NOT NULL,
+  `idvisit` int(10) unsigned NOT NULL,
+  `idorder` varchar(100) NOT NULL,
+  `idaction_sku` int(10) unsigned NOT NULL,
+  `idaction_name` int(10) unsigned NOT NULL,
+  `idaction_category` int(10) unsigned NOT NULL,
+  `idaction_category2` int(10) unsigned NOT NULL,
+  `idaction_category3` int(10) unsigned NOT NULL,
+  `idaction_category4` int(10) unsigned NOT NULL,
+  `idaction_category5` int(10) unsigned NOT NULL,
+  `price` float NOT NULL,
+  `quantity` int(10) unsigned NOT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`idvisit`,`idorder`,`idaction_sku`),
+  KEY `index_idsite_servertime` (`idsite`,`server_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
+class LogConversionItem(
+  idsite: Int,
+  idvisitor: Array[Byte],
+  serverTime: JTimestamp,
+  idvisit: Int,
+  idorder: String,
+  idactionSku: Int,
+  idactionName: Int,
+  idactionCategory: Int,
+  idactionCategory2: Int,
+  idactionCategory3: Int,
+  idactionCategory4: Int,
+  idactionCategory5: Int,
+  price: Float, 
+  quantity: Int, 
+  deleted: Boolean) extends Model {
+
+  /**
+   * Add all the fields to the array in the right order
+   */
+  def toArray: Array[String] = Array(idsite,
+                                    idvisitor,
+                                    serverTime,
+                                    idvisit,
+                                    idorder,
+                                    idactionSku,
+                                    idactionName,
+                                    idactionCategory,
+                                    idactionCategory2,
+                                    idactionCategory3,
+                                    idactionCategory4,
+                                    idactionCategory5,
+                                    price,
+                                    quantity,
+                                    deleted)
+}

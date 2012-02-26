@@ -26,6 +26,7 @@ trait Model {
 
   // Simple conversions
   implicit def int2CsvString(i: Int): String = i.toString
+  implicit def float2CsvString(f: Float): String = f.toString
   implicit def boolean2CsvString(b: Boolean): String = b.toString
   implicit def jtimestamp2CsvString(jt: JTimestamp): String = jt.toString
 

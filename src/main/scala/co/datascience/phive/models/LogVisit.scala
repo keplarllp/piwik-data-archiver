@@ -12,3 +12,69 @@
  */
 package co.datascience.phive
 package models
+
+/*
+-- ----------------------------
+-- Table structure for `piwik_log_visit`
+-- ----------------------------
+DROP TABLE IF EXISTS `piwik_log_visit`;
+CREATE TABLE `piwik_log_visit` (
+  `idvisit` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idsite` int(10) unsigned NOT NULL,
+  `idvisitor` binary(8) NOT NULL,
+  `visitor_localtime` time NOT NULL,
+  `visitor_returning` tinyint(1) NOT NULL,
+  `visitor_count_visits` smallint(5) unsigned NOT NULL,
+  `visitor_days_since_last` smallint(5) unsigned NOT NULL,
+  `visitor_days_since_order` smallint(5) unsigned NOT NULL,
+  `visitor_days_since_first` smallint(5) unsigned NOT NULL,
+  `visit_first_action_time` datetime NOT NULL,
+  `visit_last_action_time` datetime NOT NULL,
+  `visit_exit_idaction_url` int(11) unsigned NOT NULL,
+  `visit_exit_idaction_name` int(11) unsigned NOT NULL,
+  `visit_entry_idaction_url` int(11) unsigned NOT NULL,
+  `visit_entry_idaction_name` int(11) unsigned NOT NULL,
+  `visit_total_actions` smallint(5) unsigned NOT NULL,
+  `visit_total_time` smallint(5) unsigned NOT NULL,
+  `visit_goal_converted` tinyint(1) NOT NULL,
+  `visit_goal_buyer` tinyint(1) NOT NULL,
+  `referer_type` tinyint(1) unsigned DEFAULT NULL,
+  `referer_name` varchar(70) DEFAULT NULL,
+  `referer_url` text NOT NULL,
+  `referer_keyword` varchar(255) DEFAULT NULL,
+  `config_id` binary(8) NOT NULL,
+  `config_os` char(3) NOT NULL,
+  `config_browser_name` varchar(10) NOT NULL,
+  `config_browser_version` varchar(20) NOT NULL,
+  `config_resolution` varchar(9) NOT NULL,
+  `config_pdf` tinyint(1) NOT NULL,
+  `config_flash` tinyint(1) NOT NULL,
+  `config_java` tinyint(1) NOT NULL,
+  `config_director` tinyint(1) NOT NULL,
+  `config_quicktime` tinyint(1) NOT NULL,
+  `config_realplayer` tinyint(1) NOT NULL,
+  `config_windowsmedia` tinyint(1) NOT NULL,
+  `config_gears` tinyint(1) NOT NULL,
+  `config_silverlight` tinyint(1) NOT NULL,
+  `config_cookie` tinyint(1) NOT NULL,
+  `location_ip` varbinary(16) NOT NULL,
+  `location_browser_lang` varchar(20) NOT NULL,
+  `location_country` char(3) NOT NULL,
+  `location_continent` char(3) NOT NULL,
+  `custom_var_k1` varchar(200) DEFAULT NULL,
+  `custom_var_v1` varchar(200) DEFAULT NULL,
+  `custom_var_k2` varchar(200) DEFAULT NULL,
+  `custom_var_v2` varchar(200) DEFAULT NULL,
+  `custom_var_k3` varchar(200) DEFAULT NULL,
+  `custom_var_v3` varchar(200) DEFAULT NULL,
+  `custom_var_k4` varchar(200) DEFAULT NULL,
+  `custom_var_v4` varchar(200) DEFAULT NULL,
+  `custom_var_k5` varchar(200) DEFAULT NULL,
+  `custom_var_v5` varchar(200) DEFAULT NULL,
+  `location_provider` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idvisit`),
+  KEY `index_idsite_config_datetime` (`idsite`,`config_id`,`visit_last_action_time`),
+  KEY `index_idsite_datetime` (`idsite`,`visit_last_action_time`),
+  KEY `index_idsite_idvisitor` (`idsite`,`idvisitor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
