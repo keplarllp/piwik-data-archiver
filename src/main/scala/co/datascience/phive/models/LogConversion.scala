@@ -103,12 +103,39 @@ class LogConversion(private val idvisit: Int,
   /**
   * Add all the fields to the array in the right order
   */
-  def toArray: Array[String] = Array("TODO")
-
-   /* this.idvisit.toString(),
-  this.idsite.toString(),
-  String.valueOf(this.idvisitor),
-  this.serverTime.toString(),
-  this.idactionUrl.toString()                       */
-
+  def toArray: Array[String] = Array(idvisit,
+                                    idsite,
+                                    idvisitor,
+                                    serverTime,
+                                    idactionUrl,
+                                    idlinkVa,
+                                    refererVisitServerDate,
+                                    refererType,
+                                    refererName,
+                                    refererKeyword,
+                                    visitorReturning,
+                                    visitorCountVisits,
+                                    visitorDaysSinceFirst,
+                                    visitorDaysSinceOrder,
+                                    locationCountry,
+                                    locationContinent,
+                                    url,
+                                    idgoal,
+                                    buster,
+                                    idorder,
+                                    items,
+                                    revenue,
+                                    revenueTax,
+                                    revenueShipping,
+                                    revenueDiscount,
+                                    customVarK1,
+                                    customVarV1,
+                                    customVarK2,
+                                    customVarV2,
+                                    customVarK3,
+                                    customVarV3,
+                                    customVarK4,
+                                    customVarV4,
+                                    customVarK5,
+                                    customVarV5)
 }

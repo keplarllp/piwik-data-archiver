@@ -30,7 +30,7 @@ CREATE TABLE `piwik_log_action` (
 case class LogAction(
   idaction: Int,
   name:     Option[String],
-  hash:     Long,
+  hash:     Int,
   `type`:   Int
   ) extends Model {
 

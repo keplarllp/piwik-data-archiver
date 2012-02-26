@@ -13,6 +13,10 @@
 package co.datascience.phive
 package models
 
+// Java
+import java.util.{Date => JDate}
+import java.sql.{Timestamp => JTimestamp}
+
 trait Model {
 
   /**
@@ -20,7 +24,17 @@ trait Model {
    */
   def toArray: Array[String]
 
+  // Simple conversions
   implicit def int2CsvString(i: Int): String = i.toString
+  implicit def boolean2CsvString(b: Boolean): String = b.toString
+  implicit def jtimestamp2CsvString(jt: JTimestamp): String = jt.toString
+
+  // Array conversions
+  implicit def byteArray2CsvString(ba: Array[Byte]): String = String.valueOf(ba)
+
+  // Option conversions
   implicit def optionString2CsvString(os: Option[String]) = os.getOrElse("")
-  implicit def long2CsvString(l: Long): String = l.toString
+  implicit def optionJDate2CsvString(ojd: Option[JDate]) = ojd.map(_.toString).getOrElse("")
+  implicit def optionFloat2CsvString(of: Option[Float]) = of.map(_.toString).getOrElse("")
+  implicit def optionInt2CsvString(oi: Option[Int]) = oi.map(_.toString).getOrElse("")
 }
