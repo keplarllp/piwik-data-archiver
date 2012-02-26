@@ -107,7 +107,7 @@ class LogConversion(private val idvisit: Int,
 
    /* this.idvisit.toString(),
   this.idsite.toString(),
-  new String(this.idvisitor),
+  String.valueOf(this.idvisitor),
   this.serverTime.toString(),
   this.idactionUrl.toString()                       */
 
