@@ -30,5 +30,5 @@ case class PiwikSchema(prefix: String) extends Schema {
   val logAction = table[LogAction](this.prefix + "log_action")
   val logConversion = table[LogConversion](this.prefix + "log_conversion")
   val logConversionVisit = table[LogConversionVisit](this.prefix + "log_conversion_visit")
-  // TODO: add other 4 tables in here
+  // TODO: add other 2 tables in here
 }
