@@ -1,16 +1,16 @@
-# SnowPlow-Piwik Connector
+# SnowPik: SnowPlow-Piwik Connector
 
 ![logo] [logo]
 
 ## Overview
 
-SnowPlow-Piwik Connector is a command-line tool which dumps your [Piwik] [piwik] log data to .csv files and then uploads these files to [Amazon S3] [s3] ready for you to analyze using [SnowPlow] [snowplow]. SnowPlow-Piwik Connector is written in Scala.
+SnowPik, the SnowPlow-Piwik Connector is a command-line tool which dumps your [Piwik] [piwik] log data to .csv files and then uploads these files to [Amazon S3] [s3] ready for you to analyze using [SnowPlow] [snowplow]. SnowPik is written in Scala.
 
 ## Health Warning
 
-For performance reasons, this tool talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
+For performance reasons, SnowPik talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
 
-While all of its database operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for SnowPlow, and giving this SnowPlow user only the bare-minimum permissions.
+While all of its database operations are non-destructive, we strongly recommend creating a dedicated user account in your Piwik MySQL database for SnowPik, and giving this SnowPik user only the bare-minimum permissions.
 
 Note that you use this software at your own risk - Orderly Ltd takes no responsibility for any loss of data incurred through the use of it.
 
@@ -18,7 +18,7 @@ Note that you use this software at your own risk - Orderly Ltd takes no responsi
 
 ### 1. Before you Start
 
-To make full use of this tool, you will need:
+To make full use of SnowPik, you will need:
 
 * A running Piwik installation
 * Access to your your Piwik MySQL database
@@ -31,18 +31,18 @@ To make full use of this tool, you will need:
 
 ### 3. Setup MySQL Access
 
-Setup a dedicated MySQL user account for this software, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that it needs to read:
+Setup a dedicated MySQL user account for SnowPik, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that it needs to read:
 
 ```mysql
--- Create the SnowPlow user
-CREATE USER 'snowplow'@'localhost' IDENTIFIED BY '<password>';
+-- Create the SnowPik user
+CREATE USER 'snowpik'@'localhost' IDENTIFIED BY '<password>';
 
--- Set the SnowPlow user's permissions
-GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'snowplow'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'snowplow'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'snowplow'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'snowplow'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'snowplow'@'localhost' WITH GRANT OPTION;
+-- Set the SnowPik user's permissions
+GRANT SELECT ON `piwik`.`piwik\_log\_action` TO 'snowpik'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_visit` TO 'snowpik'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_link\_visit\_action` TO 'snowpik'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_conversion` TO 'snowpik'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'snowpik'@'localhost' WITH GRANT OPTION;
 ```
 
 ### 4. Setup your Configuration File
@@ -52,11 +52,11 @@ Next you need to create a configuration file, setting both your Piwik MySQL and 
 Here is an example configuration:
 
 ```python
-###########################
-# Connector Configuration #
-###########################
+#########################
+# SnowPik Configuration #
+#########################
 
-connector {
+snowpik {
   db {
     username: ""
     password: ""
@@ -75,10 +75,10 @@ connector {
 ```
 ### 5. Run against your Historic Piwik Data
 
-You can run this tool against your Piwik data collected to-date using this command: 
+You can run SnowPik against your Piwik data collected to-date using this command: 
 
 ```bash
-./snowik --config snowik.conf --period historic
+./snowpik --config snowpik.conf --period historic
 ```
 
 This command processes all of your Piwik data up until the end of **yesterday** (based on your host computer's clock). Today's data is ignored because the log files for today will be as yet incomplete.
@@ -91,7 +91,7 @@ Once you have uploaded your historical Piwik data to S3, you can setup a daily `
 
 ## Full Usage Instructions
 
-The full capabilities of the tool are as per per the command-line usage:
+The full capabilities of SnowPik are as per per the command-line usage:
 
     // TODO
 
@@ -108,7 +108,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[logo]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/phive.png
+[logo]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/snowpik.png
 [snowplow]: http://www.keplarllp.com/blog/
 [piwik]: http://piwik.org
 [issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1

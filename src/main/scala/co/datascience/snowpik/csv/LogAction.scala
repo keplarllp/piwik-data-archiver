@@ -10,13 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package co.datascience.phive
+package co.datascience.snowpik
 package csv
 
-object LogVisit extends CsvFile {
+object LogAction extends CsvFile {
 
-  val filename = "logvisit.csv"
+  val filename = "logaction.csv"
 
-  val header   = Array("TODO"
+  val header   = Array("idaction",
+                       "name",
+                       "hash",
+                       "type"
                       )
 }

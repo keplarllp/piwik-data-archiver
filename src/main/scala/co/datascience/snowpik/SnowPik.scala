@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package co.datascience.phive
+package co.datascience.snowpik
 
 // Config
 import com.typesafe.config.Config
@@ -32,23 +32,23 @@ import models.PiwikSchema
 import csv._
 
 /**
- * Phive performs the Piwik data export and upload
+ * SnowPik performs the Piwik data export and upload
  */
-case class Phive(config: Config,
+case class SnowPik(config: Config,
                  period: TimePeriod.Value,
                  upload: Boolean) {
 
   /**
-   * Immediately construct a PhiveConfig object which
+   * Immediately construct a SnowPikConfig object which
    * holds all of our configuration variables.
    */
-  object PhiveConfig {
+  object SnowPikConfig {
 
     // Get the top level
-    private val phive = config.getConfig("phive")
+    private val snowpik = config.getConfig("snowpik")
 
     // From the db section
-    private val db = phive.getConfig("db")
+    private val db = snowpik.getConfig("db")
     val username   = db.getString("username")
     val password   = db.getString("password")
     val prefix     = db.getString("prefix")
@@ -57,27 +57,27 @@ case class Phive(config: Config,
                                                     db.getString("database"))
 
     // From the export section
-    private val export = phive.getConfig("export")
+    private val export = snowpik.getConfig("export")
     val folder         = export.getString("folder")
 
     // From the upload section
-    private val upload = phive.getConfig("upload")
+    private val upload = snowpik.getConfig("upload")
     val key            = upload.getString("key")
     val secret         = upload.getString("secret")
     val bucket         = upload.getString("bucket")
   }
 
   // Instantiate our schema with the appropriate table prefix
-  private val PrefixedSchema = PiwikSchema(PhiveConfig.prefix)
+  private val PrefixedSchema = PiwikSchema(SnowPikConfig.prefix)
 
   // Let's initialize the db connection once
   Class.forName("com.mysql.jdbc.Driver")
     SessionFactory.concreteFactory = Some(() => Session.create(
-      java.sql.DriverManager.getConnection(PhiveConfig.connection, PhiveConfig.username, PhiveConfig.password), new MySQLAdapter)
+      java.sql.DriverManager.getConnection(SnowPikConfig.connection, SnowPikConfig.username, SnowPikConfig.password), new MySQLAdapter)
   )
 
   // Let's create our Amazon S3 client once
-  private val creds = new AWSCredentials(PhiveConfig.key, PhiveConfig.secret)
+  private val creds = new AWSCredentials(SnowPikConfig.key, SnowPikConfig.secret)
   private val S3 = new RestS3Service(creds)
 
   /**
@@ -97,7 +97,7 @@ case class Phive(config: Config,
 
     // Finally let's upload if required
     if (upload) {
-      LogAction.uploadCsv(S3, PhiveConfig.bucket)
+      LogAction.uploadCsv(S3, SnowPikConfig.bucket)
     }
   }
 }

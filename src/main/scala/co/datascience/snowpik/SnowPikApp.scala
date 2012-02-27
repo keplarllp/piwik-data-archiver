@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package co.datascience.phive
+package co.datascience.snowpik
 
 // Java
 import java.io.File
@@ -34,7 +34,7 @@ object TimePeriod extends Enumeration {
 /**
  * Our entrypoint object for Phive.
  */
-object PhiveApp {
+object SnowPikApp {
 
   // Argument specifications
   import ArgotConverters._
@@ -84,7 +84,7 @@ object PhiveApp {
   }
 
   /**
-   * Main Phive program
+   * Main SnowPik program
    */
   def main(args: Array[String]) {
 
@@ -93,9 +93,9 @@ object PhiveApp {
       parser.parse(args)
 
       // Run the Piwik export and upload
-      Phive(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
-           period = period.value.getOrElse(TimePeriod.YESTERDAY),          // Default to yesterday's data
-           upload = !(noUpload.value.getOrElse(false))                     // Default to upload = true
+      SnowPik(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
+              period = period.value.getOrElse(TimePeriod.YESTERDAY),          // Default to yesterday's data
+              upload = !(noUpload.value.getOrElse(false))                     // Default to upload = true
       ).run()
     } catch {
       case e: ArgotUsageException => println(e.message)

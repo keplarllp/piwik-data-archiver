@@ -24,8 +24,8 @@ object PhiveBuild extends Build {
   }
 
   // Define our project, with basic project information and library dependencies
-  lazy val phiveProject = Project("phive", file("."))
-    .settings(phiveSettings: _*)
+  lazy val snowpikProject = Project("snowpik", file("."))
+    .settings(snowpikSettings: _*)
     .settings(
       libraryDependencies ++= Seq(
         Libraries.argot,

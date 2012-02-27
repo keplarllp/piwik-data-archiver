@@ -28,7 +28,7 @@ object BuildSettings {
   // Makes our SBT app settings available from within the app
   lazy val scalifySettings = Seq(sourceGenerators in Compile <+= (sourceManaged in Compile, version, name, organization) map { (d, v, n, o) =>
     val file = d / "settings.scala"
-    IO.write(file, """package co.datascience.phive.generated
+    IO.write(file, """package co.datascience.snowpik.generated
       |object Settings {
       |  val organization = "%s"
       |  val version = "%s"
@@ -49,5 +49,5 @@ object BuildSettings {
     )
   )
 
-  lazy val phiveSettings = basicSettings ++ scalifySettings ++ proguard
+  lazy val snowpikSettings = basicSettings ++ scalifySettings ++ proguard
 }
