@@ -61,19 +61,20 @@ class LogConversionItem(
   /**
    * Add all the fields to the array in the right order
    */
-  def toArray: Array[String] = Array(idsite,
-                                    idvisitor,
-                                    serverTime,
-                                    idvisit,
-                                    idorder,
-                                    idactionSku,
-                                    idactionName,
-                                    idactionCategory,
-                                    idactionCategory2,
-                                    idactionCategory3,
-                                    idactionCategory4,
-                                    idactionCategory5,
-                                    price,
-                                    quantity,
-                                    deleted)
+  def toArray: Array[String] = Array(
+    idsite,
+    idvisitor,
+    serverTime,
+    idvisit,
+    idorder,
+    idactionSku,
+    idactionName,
+    idactionCategory,
+    idactionCategory2,
+    idactionCategory3,
+    idactionCategory4,
+    idactionCategory5,
+    price,
+    quantity,
+    deleted)
 }

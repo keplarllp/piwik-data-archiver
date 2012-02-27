@@ -13,6 +13,9 @@
 package co.datascience.phive
 package models
 
+// Java
+import java.sql.{Timestamp => JTimestamp}
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_link_visit_action`
@@ -44,3 +47,51 @@ CREATE TABLE `piwik_log_link_visit_action` (
   KEY `index_idsite_servertime` (`idsite`,`server_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
+case class LogLinkVisitAction(
+  idlinkVa: Int,
+  idsite: Int,
+  idvisitor: Array[Byte],
+  serverTime: JTimestamp,
+  idvisit: Int,
+  idactionUrl: Int,
+  idactionUrlRef: Int,
+  idactionName: Int,
+  idactionNameRef: Int,
+  timeSpentRefAction: Int,
+  customVarK1: Option[String],
+  customVarV1: Option[String],
+  customVarK2: Option[String],
+  customVarV2: Option[String],
+  customVarK3: Option[String],
+  customVarV3: Option[String],
+  customVarK4: Option[String],
+  customVarV4: Option[String],
+  customVarK5: Option[String],
+  customVarV5: Option[String]
+  ) extends Model {
+
+  /**
+   * Add all the fields to the array in the right order
+   */
+  def toArray: Array[String] = Array(
+    idlinkVa,
+    idsite,
+    idvisitor,
+    serverTime,
+    idvisit,
+    idactionUrl,
+    idactionUrlRef,
+    idactionName,
+    idactionNameRef,
+    timeSpentRefAction,
+    customVarK1,
+    customVarV1,
+    customVarK2,
+    customVarV2,
+    customVarK3,
+    customVarV3,
+    customVarK4,
+    customVarV4,
+    customVarK5,
+    customVarV5)
+}
