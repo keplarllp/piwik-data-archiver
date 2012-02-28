@@ -13,6 +13,8 @@
 package co.datascience.snowpik
 package models
 
+import scala.Array._
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_visit`
@@ -78,3 +80,82 @@ CREATE TABLE `piwik_log_visit` (
   KEY `index_idsite_idvisitor` (`idsite`,`idvisitor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
+case class LogVisit(
+  idvisit: Int,
+  idsite: Int,
+  idvisitor: Array[Byte],
+
+  /* TODO: add rest */
+
+  customVarK1: Option[String],
+  customVarV1: Option[String],
+  customVarK2: Option[String],
+  customVarV2: Option[String],
+  customVarK3: Option[String],
+  customVarV3: Option[String],
+  customVarK4: Option[String],
+  customVarV4: Option[String],
+  customVarK5: Option[String],
+  customVarV5: Option[String],
+  locationProvider: Option[String]
+  ) extends Model {
+  
+  
+  /**
+   * Add all the fields to the array in the right order
+   */
+  def toArray: Array[String] = Array(
+    idvisit,
+    idsite,
+    idvisitor,
+    visitorLocaltime,
+    visitorReturning,
+    visitorCountVisits,
+    visitorDaysSinceLast,
+    visitorDaysSinceOrder,
+    visitorDaysSinceFirst,
+    visitFirstActionTime,
+    visitLastActionTime,
+    visitExitIdactionUrl,
+    visitExitIdactionName,
+    visitEntryIdactionUrl,
+    visitEntryIdactionName,
+    visitTotalActions,
+    visitTotalTime,
+    visitGoalConverted,
+    visitGoalBuyer,
+    refererType,
+    refererName,
+    refererUrl,
+    refererKeyword,
+    configId,
+    configOs,
+    configBrowserName,
+    configBrowserVersion,
+    configResolution,
+    configPdf,
+    configFlash,
+    configJava,
+    configDirector,
+    configQuicktime,
+    configRealplayer,
+    configWindowsmedia,
+    configGears,
+    configSilverlight,
+    configCookie,
+    locationIp,
+    locationBrowserLang,
+    locationCountry,
+    locationContinent,
+    customVarK1,
+    customVarV1,
+    customVarK2,
+    customVarV2,
+    customVarK3,
+    customVarV3,
+    customVarK4,
+    customVarV4,
+    customVarK5,
+    customVarV5,
+    locationProvider)
+}
