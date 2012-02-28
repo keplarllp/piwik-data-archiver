@@ -13,7 +13,8 @@
 package co.datascience.snowpik
 package models
 
-import scala.Array._
+// Java
+import java.sql.{Timestamp => JTimestamp}
 
 /*
 -- ----------------------------
@@ -84,9 +85,45 @@ case class LogVisit(
   idvisit: Int,
   idsite: Int,
   idvisitor: Array[Byte],
-
-  /* TODO: add rest */
-
+  visitorLocaltime: /* time? */,
+  visitorReturning: Boolean,
+  visitorCountVisits: Int,
+  visitorDaysSinceLast: Int,
+  visitorDaysSinceOrder: Int,
+  visitorDaysSinceFirst: Int,
+  visitFirstActionTime: JTimetamop,
+  visitLastActionTime: JTimetamop,
+  visitExitIdactionUrl: Int,
+  visitExitIdactionName: Int,
+  visitEntryIdactionUrl: Int,
+  visitEntryIdactionName: Int,
+  visitTotalActions: Int,
+  visitTotalTime: Int,
+  visitGoalConverted: Boolean,
+  visitGoalBuyer: Boolean,
+  refererType: Option[Boolean],
+  refererName: Option[String],
+  refererUrl: String,
+  refererKeyword: Option[String],
+  configId: Array[Byte],
+  configOs: String, // TODO: check this works.
+  configBrowserName: String,
+  configBrowserVersion: String,
+  configResolution: String,
+  configPdf: Boolean,
+  configFlash: Boolean,
+  configJava: Boolean,
+  configDirector: Boolean,
+  configQuicktime: Boolean,
+  configRealplayer: Boolean,
+  configWindowsmedia: Boolean,
+  configGears: Boolean,
+  configSilverlight: Boolean,
+  configCookie: Boolean,
+  locationIp: ,
+  locationBrowserLang: ,
+  locationCountry: ,
+  locationContinent: ,
   customVarK1: Option[String],
   customVarV1: Option[String],
   customVarK2: Option[String],
