@@ -32,14 +32,14 @@ object TimePeriod extends Enumeration {
 }
 
 /**
- * Our entrypoint object for Phive.
+ * Our entrypoint object for SnowPik.
  */
 object SnowPikApp {
 
   // Argument specifications
   import ArgotConverters._
 
-  // General bumf for Phive
+  // General bumf for SnowPik
   val parser = new ArgotParser(
     programName = generated.Settings.name,
     compactUsage = true,
@@ -64,6 +64,8 @@ object SnowPikApp {
         ConfigFactory.empty()
       }
   }
+
+  // TODO: add compulsory site id
 
   // Optional no-header flag
   val noUpload = parser.flag[Boolean](List("n", "noupload"),
