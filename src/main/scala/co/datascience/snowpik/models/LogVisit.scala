@@ -85,7 +85,7 @@ class LogVisit(
   val idvisit: Int,
   val idsite: Int,
   val idvisitor: Array[Byte],
-  val visitorLocaltime: /* time? */,
+  val visitorLocaltime: String, // TODO: check this works
   val visitorReturning: Boolean,
   val visitorCountVisits: Int,
   val visitorDaysSinceLast: Int,
@@ -106,7 +106,7 @@ class LogVisit(
   val refererUrl: String,
   val refererKeyword: Option[String],
   val configId: Array[Byte],
-  val configOs: String, // TODO: check this works.
+  val configOs: String,
   val configBrowserName: String,
   val configBrowserVersion: String,
   val configResolution: String,
@@ -120,7 +120,7 @@ class LogVisit(
   val configGears: Boolean,
   val configSilverlight: Boolean,
   val configCookie: Boolean,
-  val locationIp: /* varbinary? */,
+  val locationIp: Array[Byte],
   val locationBrowserLang: String,
   val locationCountry: String,
   val locationContinent: String,
@@ -194,5 +194,6 @@ class LogVisit(
     customVarV4,
     customVarK5,
     customVarV5,
-    locationProvider)
+    locationProvider
+  )
 }

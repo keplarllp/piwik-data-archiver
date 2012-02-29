@@ -38,4 +38,5 @@ trait Model {
   implicit def optionJDate2CsvString(ojd: Option[JDate]) = ojd.map(_.toString).getOrElse("")
   implicit def optionFloat2CsvString(of: Option[Float]) = of.map(_.toString).getOrElse("")
   implicit def optionInt2CsvString(oi: Option[Int]) = oi.map(_.toString).getOrElse("")
+  implicit def optionBoolean2CsvString(ob: Option[Boolean]) = ob.map(_.toString).getOrElse("")
 }

@@ -28,8 +28,9 @@ case class PiwikSchema(prefix: String) extends Schema {
   // Map classes to actual table names
   val logAction = table[LogAction](this.prefix + "log_action")
   val logConversion = table[LogConversion](this.prefix + "log_conversion")
-  val logConversionVisit = table[LogConversionVisit](this.prefix + "log_conversion_visit")
-  // TODO: add other 2 tables in here
+  val logConversionItem = table[LogConversionItem](this.prefix + "log_conversion_item")
+  val logLinkVisitAction = table[LogLinkVisitAction](this.prefix + "log_link_visit_action")
+  val logVisit = table[LogVisit](this.prefix + "log_visit")
 
   /**
    * Naming convention transform for Squeryl.

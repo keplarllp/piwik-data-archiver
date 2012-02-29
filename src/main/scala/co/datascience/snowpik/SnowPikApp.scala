@@ -71,6 +71,10 @@ object SnowPikApp {
   val noUpload = parser.flag[Boolean](List("n", "noupload"),
                                            "Flags that the generated .csv files should not be uploaded to S3")
 
+  // Optional site id separator
+  val siteId = parser.option[Int](List("s", "site"), "id",
+                                      "Piwik site id to extract data for. Defaults to 1")
+
   // Optional time period
   val period = parser.option[TimePeriod.Value](List("p", "period"),
                                                     "time",
@@ -97,7 +101,7 @@ object SnowPikApp {
       // Run the Piwik export and upload
       SnowPik(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
               period = period.value.getOrElse(TimePeriod.YESTERDAY),          // Default to yesterday's data
-              upload = !(noUpload.value.getOrElse(false))                     // Default to upload = true
+              upload = !(noUpload.value.getOrElse(false))                     // Default to true (i.e. we upload to S3)
       ).run(siteId = siteId.value.getOrElse(1))                               // Default to 1 for the site ID
     } catch {
       case e: ArgotUsageException => println(e.message)
