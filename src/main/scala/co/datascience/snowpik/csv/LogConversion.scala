@@ -15,7 +15,7 @@ package csv
 
 object LogConversion extends CsvFile {
 
-  val filename = "logconversion.csv"
+  val filename = "conversion.csv"
 
   val header = Array(
     "idvisit",

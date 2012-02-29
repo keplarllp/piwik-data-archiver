@@ -15,8 +15,61 @@ package csv
 
 object LogVisit extends CsvFile {
 
-  val filename = "logvisit.csv"
+  val filename = "visit.csv"
 
-  val header   = Array("TODO"
-                      )
+  val header = Array(
+    "idvisit",
+    "idsite",
+    "idvisitor",
+    "visitor_localtime",
+    "visitor_returning",
+    "visitor_count_visits",
+    "visitor_days_since_last",
+    "visitor_days_since_order",
+    "visitor_days_since_first",
+    "visit_first_action_time",
+    "visit_last_action_time",
+    "visit_exit_idaction_url",
+    "visit_exit_idaction_name",
+    "visit_entry_idaction_url",
+    "visit_entry_idaction_name",
+    "visit_total_actions",
+    "visit_total_time",
+    "visit_goal_converted",
+    "visit_goal_buyer",
+    "referer_type",
+    "referer_name",
+    "referer_url",
+    "referer_keyword",
+    "config_id",
+    "config_os",
+    "config_browser_name",
+    "config_browser_version",
+    "config_resolution",
+    "config_pdf",
+    "config_flash",
+    "config_java",
+    "config_director",
+    "config_quicktime",
+    "config_realplayer",
+    "config_windowsmedia",
+    "config_gears",
+    "config_silverlight",
+    "config_cookie",
+    "location_ip",
+    "location_browser_lang",
+    "location_country",
+    "location_continent",
+    "custom_var_k1",
+    "custom_var_v1",
+    "custom_var_k2",
+    "custom_var_v2",
+    "custom_var_k3",
+    "custom_var_v3",
+    "custom_var_k4",
+    "custom_var_v4",
+    "custom_var_k5",
+    "custom_var_v5",
+    "location_provider"
+  )
 }
