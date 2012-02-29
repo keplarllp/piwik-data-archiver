@@ -15,6 +15,7 @@ package csv
 
 // Java
 import java.io.{File, FileWriter}
+import java.sql.{Timestamp => JTimestamp}
 
 // opencsv
 import au.com.bytecode.opencsv._
