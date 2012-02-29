@@ -19,7 +19,7 @@ object BuildSettings {
   lazy val basicSettings = Seq[Setting[_]](
     organization  := "Orderly Ltd",
     version       := "0.1",
-    description   := "A command-line tool for exporting the Piwik log tables to .csv and uploading to S3 for Hive analytics",
+    description   := "A command-line tool for exporting the Piwik log tables to .csv and uploading to S3 for analysis using SnowPlow",
     scalaVersion  := "2.9.1",
     scalacOptions := Seq("-deprecation", "-encoding", "utf8"),
     resolvers     ++= Dependencies.resolutionRepos

@@ -19,7 +19,7 @@ object Dependencies {
   )
 
   object V {
-    // Libraries for Phive
+    // Libraries for SnowPik
     val config    = "0.2.1"
     val argot     = "0.3.5"
     val opencsv   = "2.0"

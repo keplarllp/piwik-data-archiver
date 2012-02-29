@@ -13,7 +13,7 @@
 import sbt._
 import Keys._
 
-object PhiveBuild extends Build {
+object SnowPikBuild extends Build {
 
   import Dependencies._
   import BuildSettings._
