@@ -17,9 +17,10 @@ object LogAction extends CsvFile {
 
   val filename = "logaction.csv"
 
-  val header   = Array("idaction",
-                       "name",
-                       "hash",
-                       "type"
-                      )
+  val header = Array(
+    "idaction",
+    "name",
+    "hash",
+    "type"
+  )
 }

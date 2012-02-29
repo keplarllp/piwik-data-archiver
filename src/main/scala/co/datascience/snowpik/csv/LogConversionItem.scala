@@ -17,6 +17,21 @@ object LogConversionItem extends CsvFile {
 
   val filename = "logconversionitem.csv"
 
-  val header   = Array("TODO"
-                      )
+  val header = Array(
+    "idsite",
+    "idvisitor",
+    "server_time",
+    "idvisit",
+    "idorder",
+    "idaction_sku",
+    "idaction_name",
+    "idaction_category",
+    "idaction_category2",
+    "idaction_category3",
+    "idaction_category4",
+    "idaction_category5",
+    "price",
+    "quantity",
+    "deleted"
+  )
 }
