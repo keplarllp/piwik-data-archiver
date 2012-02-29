@@ -83,9 +83,10 @@ case class SnowPik(config: Config,
   /**
    * Executes the export
    */
-  def run() {
+  def run(siteId: Int) {
 
     // First let's output the LogAction table. The simplest as there is no timestamping on this one
+    // TODO: add siteId filtering
     LogAction.initCsv()
     inTransaction {
       from (PrefixedSchema.logAction)(r => select(r)).toList foreach(la => LogAction.writeRow(la.toArray))

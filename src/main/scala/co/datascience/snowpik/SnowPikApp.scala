@@ -98,7 +98,7 @@ object SnowPikApp {
       SnowPik(config = config.value.getOrElse(ConfigFactory.load("default")), // Fall back to the /resources/default.conf
               period = period.value.getOrElse(TimePeriod.YESTERDAY),          // Default to yesterday's data
               upload = !(noUpload.value.getOrElse(false))                     // Default to upload = true
-      ).run()
+      ).run(siteId = siteId.value.getOrElse(1))                               // Default to 1 for the site ID
     } catch {
       case e: ArgotUsageException => println(e.message)
     }
