@@ -91,6 +91,7 @@ case class SnowPik(config: Config,
     PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
     PrefixedSchema.logVisit           ~> LogVisitFile
 
+    // TODO: this shouldn't be file specific (instead, let's apply the upload to all files in a given directory)
     // Finally let's upload if required
     if (upload) {
       LogAction.uploadCsv(S3, SnowPikConfig.bucket)
