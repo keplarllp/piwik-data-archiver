@@ -13,30 +13,25 @@
 package co.datascience.snowpik
 package csv
 
-object LogLinkVisitAction extends CsvFile {
+object LogConversionItemFile extends CsvFile {
 
-  val filename = "link-visit-action.csv"
+  val filename = "conversion-item.csv"
 
   val header = Array(
-    "idlink_va",
     "idsite",
     "idvisitor",
     "server_time",
     "idvisit",
-    "idaction_url",
-    "idaction_url_ref",
+    "idorder",
+    "idaction_sku",
     "idaction_name",
-    "idaction_name_ref",
-    "time_spent_ref_action",
-    "custom_var_k1",
-    "custom_var_v1",
-    "custom_var_k2",
-    "custom_var_v2",
-    "custom_var_k3",
-    "custom_var_v3",
-    "custom_var_k4",
-    "custom_var_v4",
-    "custom_var_k5",
-    "custom_var_v5"
+    "idaction_category",
+    "idaction_category2",
+    "idaction_category3",
+    "idaction_category4",
+    "idaction_category5",
+    "price",
+    "quantity",
+    "deleted"
   )
 }

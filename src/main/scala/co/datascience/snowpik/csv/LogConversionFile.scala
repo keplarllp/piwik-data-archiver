@@ -13,7 +13,7 @@
 package co.datascience.snowpik
 package csv
 
-object LogConversion extends CsvFile {
+object LogConversionFile extends CsvFile {
 
   val filename = "conversion.csv"
 

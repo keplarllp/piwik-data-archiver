@@ -85,11 +85,11 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
-    PrefixedSchema.logAction          ~> LogAction
-    PrefixedSchema.logConversion      ~> LogConversion
-    PrefixedSchema.logConversionItem  ~> LogConversionItem
-    PrefixedSchema.logLinkVisitAction ~> LogLinkVisitAction
-    PrefixedSchema.logVisit           ~> LogVisit
+    PrefixedSchema.logAction          ~> LogActionFile
+    PrefixedSchema.logConversion      ~> LogConversionFile
+    PrefixedSchema.logConversionItem  ~> LogConversionItemFile
+    PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
+    PrefixedSchema.logVisit           ~> LogVisitFile
 
     // Finally let's upload if required
     if (upload) {

@@ -13,14 +13,30 @@
 package co.datascience.snowpik
 package csv
 
-object LogAction extends CsvFile {
+object LogLinkVisitActionFile extends CsvFile {
 
-  val filename = "action.csv"
+  val filename = "link-visit-action.csv"
 
   val header = Array(
-    "idaction",
-    "name",
-    "hash",
-    "type"
+    "idlink_va",
+    "idsite",
+    "idvisitor",
+    "server_time",
+    "idvisit",
+    "idaction_url",
+    "idaction_url_ref",
+    "idaction_name",
+    "idaction_name_ref",
+    "time_spent_ref_action",
+    "custom_var_k1",
+    "custom_var_v1",
+    "custom_var_k2",
+    "custom_var_v2",
+    "custom_var_k3",
+    "custom_var_v3",
+    "custom_var_k4",
+    "custom_var_v4",
+    "custom_var_k5",
+    "custom_var_v5"
   )
 }
