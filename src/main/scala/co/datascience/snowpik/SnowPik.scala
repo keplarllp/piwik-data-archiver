@@ -87,15 +87,27 @@ case class SnowPik(config: Config,
 
     // First let's output the LogAction table. The simplest as there is no timestamping on this one
     // TODO: add siteId filtering
-    LogAction.initCsv()
     inTransaction {
+
+      // First let's get
       from (PrefixedSchema.logAction)(r => select(r)).toList foreach(la => LogAction.writeRow(la.toArray))
+
+      // Lambda for the next three tables
+      val getRows = (table: ServerTimedModel, file: CsvFile) => from (table)(r =>
+        where(r.idsite === siteId)
+        select(r)
+        orderBy(r.serverTime)
+      )
+
+
+
+      // TODO: the final table
     }
-	  LogAction.finalizeCsv()
 
     // Now let's loop through and perform the same process with the other four tables...
     // TODO
     // where(r.siteid === siteId)
+    //
 
     // Finally let's upload if required
     if (upload) {
