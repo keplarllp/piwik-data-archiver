@@ -16,6 +16,13 @@ package models
 // Java
 import java.sql.{Timestamp => JTimestamp}
 
+// Squeryl
+import org.squeryl._
+import org.squeryl.PrimitiveTypeMode._
+
+// SnowPlow
+import csv.CsvFile
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_visit`
@@ -196,4 +203,18 @@ class LogVisit(
     customVarV5,
     locationProvider
   )
+
+  /**
+   * Exports this table to .csv
+   */
+  def ~>(logFile: CsvFile) {
+
+    inTransaction {
+      from (this)(t =>
+        where(t.idsite === siteId)
+        select(t)
+        orderBy(t.visitLastActionTime)
+      ).toList foreach(logFile.writeRow(_.toArray))
+    }
+  }
 }

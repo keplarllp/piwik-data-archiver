@@ -13,6 +13,9 @@
 package co.datascience.snowpik
 package models
 
+// Java
+import java.sql.{Timestamp => JTimestamp}
+
 // Squeryl
 import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
@@ -20,39 +23,21 @@ import org.squeryl.PrimitiveTypeMode._
 // SnowPik
 import csv.CsvFile
 
-/*
--- ----------------------------
--- Table structure for `piwik_log_action`
--- ----------------------------
-DROP TABLE IF EXISTS `piwik_log_action`;
-CREATE TABLE `piwik_log_action` (
-  `idaction` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` text,
-  `hash` int(10) unsigned NOT NULL,
-  `type` tinyint(3) unsigned DEFAULT NULL,
-  PRIMARY KEY (`idaction`),
-  KEY `index_type_hash` (`type`,`hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
- */
-case class LogAction(
-  idaction: Int,
-  name:     Option[String],
-  hash:     Int,
-  `type`:   Int
-  ) extends Model {
-
-  /**
-   * Add all the fields to the array in the right order
-   */
-  def toArray: Array[String] =
-    Array(this.idaction, this.name, this.hash, this.`type`)
+abstract class ServerTimedModel(
+  val idsite: Int,
+  val serverTime: JTimestamp) extends Model {
 
   /**
    * Exports this table to .csv
    */
   def ~>(logFile: CsvFile) {
+
     inTransaction {
-      from (this)(r => select(r)).toList foreach(la => logFile.writeRow(la.toArray))
+      from (this)(t =>
+        where(t.idsite === siteId)
+        select(t)
+        orderBy(t.serverTime)
+      ).toList foreach(logFile.writeRow(_.toArray))
     }
   }
 }

@@ -85,35 +85,11 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
-    // First let's output the LogAction table. The simplest as there is no timestamping on this one
-    // TODO: add siteId filtering
-    inTransaction {
-
-      // First let's get the simplest table
-      from (PrefixedSchema.logAction)(r => select(r)).toList foreach(la => LogAction.writeRow(la.toArray))
-
-      // Procedure for the next three tables
-      def export(logTable: ServerTimedModel, logFile: CsvFile) {
-
-        from (logTable)(t =>
-          where(t.idsite === siteId)
-          select(t)
-          orderBy(t.serverTime)
-        ).toList foreach(logFile.writeRow(_.toArray))
-      }
-
-      // Now execute against the three tables
-      export(PrefixedSchema.logConversion, LogConversion)
-      export(PrefixedSchema.logConversionItem, LogConversionItem)
-      export(PrefixedSchema.logLinkVisitAction, LogLinkVisitAction)
-
-      // TODO: the final table
-    }
-
-    // Now let's loop through and perform the same process with the other four tables...
-    // TODO
-    // where(r.siteid === siteId)
-    //
+    PrefixedSchema.logAction          ~> LogAction
+    PrefixedSchema.logConversion      ~> LogConversion
+    PrefixedSchema.logConversionItem  ~> LogConversionItem
+    PrefixedSchema.logLinkVisitAction ~> LogLinkVisitAction
+    PrefixedSchema.logVisit           ~> LogVisit
 
     // Finally let's upload if required
     if (upload) {

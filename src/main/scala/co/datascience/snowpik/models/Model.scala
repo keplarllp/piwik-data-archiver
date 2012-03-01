@@ -16,6 +16,7 @@ package models
 // Java
 import java.util.{Date => JDate}
 import java.sql.{Timestamp => JTimestamp}
+import csv.CsvFile
 
 trait Model {
 
@@ -23,6 +24,11 @@ trait Model {
    * A helper method, because opencsv expects to write an array to each line
    */
   def toArray: Array[String]
+
+  /**
+   * Exports this table to .csv
+   */
+  def ~>(logFile: CsvFile): Unit
 
   // Simple conversions
   implicit def int2CsvString(i: Int): String = i.toString
