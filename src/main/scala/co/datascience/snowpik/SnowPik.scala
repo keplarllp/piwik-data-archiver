@@ -89,17 +89,23 @@ case class SnowPik(config: Config,
     // TODO: add siteId filtering
     inTransaction {
 
-      // First let's get
+      // First let's get the simplest table
       from (PrefixedSchema.logAction)(r => select(r)).toList foreach(la => LogAction.writeRow(la.toArray))
 
-      // Lambda for the next three tables
-      val getRows = (table: ServerTimedModel, file: CsvFile) => from (table)(r =>
-        where(r.idsite === siteId)
-        select(r)
-        orderBy(r.serverTime)
-      )
+      // Procedure for the next three tables
+      def export(logTable: ServerTimedModel, logFile: CsvFile) {
 
+        from (logTable)(t =>
+          where(t.idsite === siteId)
+          select(t)
+          orderBy(t.serverTime)
+        ).toList foreach(logFile.writeRow(_.toArray))
+      }
 
+      // Now execute against the three tables
+      export(PrefixedSchema.logConversion, LogConversion)
+      export(PrefixedSchema.logConversionItem, LogConversionItem)
+      export(PrefixedSchema.logLinkVisitAction, LogLinkVisitAction)
 
       // TODO: the final table
     }
