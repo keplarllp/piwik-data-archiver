@@ -15,7 +15,7 @@ package csv
 
 object LogActionFile extends CsvFile {
 
-  val filename = "action.csv"
+  val folder = "actions"
 
   val header = Array(
     "idaction",
@@ -23,8 +23,6 @@ object LogActionFile extends CsvFile {
     "hash",
     "type"
   )
-
-  val dateIndex = _ // Not used
 
   /**
    * Writes out a row to our CSV file.

@@ -15,7 +15,7 @@ package csv
 
 object LogConversionItemFile extends CsvFile {
 
-  val filename = "conversion-item.csv"
+  val folder = "conversion-items"
 
   val header = Array(
     "idsite",
@@ -34,6 +34,4 @@ object LogConversionItemFile extends CsvFile {
     "quantity",
     "deleted"
   )
-
-  val dateIndex = 2 // server_time
 }

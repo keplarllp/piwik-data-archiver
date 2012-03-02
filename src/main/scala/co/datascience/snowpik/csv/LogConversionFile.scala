@@ -15,7 +15,7 @@ package csv
 
 object LogConversionFile extends CsvFile {
 
-  val filename = "conversion.csv"
+  val folder = "conversions"
 
   val header = Array(
     "idvisit",
@@ -55,6 +55,4 @@ object LogConversionFile extends CsvFile {
     "custom_var_k5",
     "custom_var_v5"
   )
-
-  val dateIndex = 3 // server_time
 }

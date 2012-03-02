@@ -16,6 +16,7 @@ package csv
 // Java
 import java.io.{File, FileWriter}
 import java.sql.{Timestamp => JTimestamp}
+import java.text.SimpleDateFormat
 
 // opencsv
 import au.com.bytecode.opencsv._
@@ -30,52 +31,56 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
  */
 abstract class CsvFile {
 
-  val filename: String
-
+  val folder: String
   val header: Array[String]
 
-  // Which field in the index is the dateIndex we use to partition our files?
-  val dateIndex: Int
-
   protected var writer: Option[CSVWriter] = None
-  protected var lastTimestamp: Option[JTimestamp] = None
-
-  /**
-   * Initializes our CSVWriter object, writes out the
-   * appropriate header row and returns it.
-   */
-  protected def initCsv(timestamp: JTimestamp): CSVWriter = {
-
-    // Check if a folder with the year-month exists. If not, create it.
-    // TODO
-
-    writer = new CSVWriter(new FileWriter(filename), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
-    writer.writeNext(header)
-    writer
-  }
+  protected var lastDate: Option[String] = None
 
   /**
    * Writes out a row to our CSV file.
    */
   def writeRow(row: Array[String], timestamp: JTimestamp) {
 
+    val date = new SimpleDateFormat("yyyy-MM-dd").format(timestamp)
+
     // If timestamp doesn't match last row's, time to open a new file
-    if (!lastTimestamp.isDefined || lastTimestamp.get != timestamp) {
+    if (lastDate.isEmpty || lastDate.get != date) {
       if (writer.isDefined) finalizeCsv()
-      writer = initCsv(timestamp)
+      writer = Some(initCsv(date))
     }
 
     if (row.length != header.length)
       throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, header.length))
 
-    writer.writeNext(row)
+    writer.get.writeNext(row)
+    lastDate = Some(date)
+  }
+
+  /**
+   * Initializes our CSVWriter object, writes out the
+   * appropriate header row and returns it.
+   */
+  protected def initCsv(date: String): CSVWriter = {
+
+    // First setup the folder
+    val folder = "tables/%s".format(date)
+    new File(folder).mkdir() // TODO: add error handling
+
+    // Now set the full file path
+    val filePath = "%s/%s.log".format(folder, date)
+
+    // Now initialize the CSVWriter, write the header and return it
+    val w = new CSVWriter(new FileWriter(filePath), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
+    w.writeNext(header)
+    w
   }
 
   /**
    * Finalise our CSV.
    */
   def finalizeCsv() {
-    writer.close()
+    writer.get.close()
   }
 
   /**
@@ -84,7 +89,7 @@ abstract class CsvFile {
   def uploadCsv(s3: RestS3Service, bucket: String) {
 
     // Create the S3 object from the file
-    val file = new File(filename)
+    val file = new File(folder) // TODO: update this
     val s3Object = new S3Object(file)
 
     // Give the S3 object public ACL based on the owning bucket's ACL

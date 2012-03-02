@@ -217,7 +217,7 @@ class PimpedLogVisit(table: Table[LogVisit]) {
         where(t.idsite === siteId)
         select(t)
         orderBy(t.visitLastActionTime)
-      ).toList foreach(lv => logFile.writeRow(lv.toArray))
+      ).toList foreach(lv => logFile.writeRow(lv.toArray, lv.visitLastActionTime))
     }
   }
 }

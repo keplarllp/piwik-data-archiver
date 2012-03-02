@@ -15,7 +15,7 @@ package csv
 
 object LogLinkVisitActionFile extends CsvFile {
 
-  val filename = "link-visit-action.csv"
+  val folder = "link-visit-actions"
 
   val header = Array(
     "idlink_va",
@@ -39,6 +39,4 @@ object LogLinkVisitActionFile extends CsvFile {
     "custom_var_k5",
     "custom_var_v5"
   )
-
-  val dateIndex = 3 // server_time
 }

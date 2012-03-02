@@ -39,7 +39,7 @@ class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) {
         where(t.idsite === siteId)
         select(t)
         orderBy(t.serverTime)
-      ).toList foreach(st => logFile.writeRow(st.toArray))
+      ).toList foreach(st => logFile.writeRow(st.toArray, st.serverTime))
     }
   }
 }
