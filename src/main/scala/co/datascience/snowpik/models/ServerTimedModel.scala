@@ -32,7 +32,7 @@ class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) {
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile) {
+  def ~>(logFile: CsvFile)(implicit siteId: Int) {
 
     inTransaction {
       from (table)(t =>

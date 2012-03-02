@@ -28,7 +28,7 @@ import org.jets3t.service.security.AWSCredentials
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 // Phive
-import models.PiwikSchema
+import models._
 import csv._
 
 /**
@@ -85,7 +85,9 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
-    implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T]
+    implicit val id = siteId
+
+    implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T](table)
 
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
