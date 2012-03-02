@@ -47,3 +47,18 @@ case class LogAction(
   def toArray: Array[String] =
     Array(this.idaction, this.name, this.hash, this.`type`)
 }
+
+class PimpedLogAction(table: Table[LogAction]) {
+
+  /**
+   * Exports this table to .csv
+   */
+  def ~>(logFile: CsvFile)(implicit siteId: Int) {
+
+    inTransaction {
+      from (table)(t =>
+        select(t)
+      ).toList foreach(a => logFile.writeRow(a.toArray))
+    }
+  }
+}

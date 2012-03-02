@@ -42,21 +42,21 @@ CREATE TABLE `piwik_log_conversion_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 class LogConversionItem(
-  idsite: Int,
-  idvisitor: Array[Byte],
-  serverTime: JTimestamp,
-  idvisit: Int,
-  idorder: String,
-  idactionSku: Int,
-  idactionName: Int,
-  idactionCategory: Int,
-  idactionCategory2: Int,
-  idactionCategory3: Int,
-  idactionCategory4: Int,
-  idactionCategory5: Int,
-  price: Float, 
-  quantity: Int, 
-  deleted: Boolean) extends ServerTimedModel(idsite, serverTime) {
+  override val idsite: Int,
+  val idvisitor: Array[Byte],
+  override val serverTime: JTimestamp,
+  val idvisit: Int,
+  val idorder: String,
+  val idactionSku: Int,
+  val idactionName: Int,
+  val idactionCategory: Int,
+  val idactionCategory2: Int,
+  val idactionCategory3: Int,
+  val idactionCategory4: Int,
+  val idactionCategory5: Int,
+  val price: Float,
+  val quantity: Int,
+  val deleted: Boolean) extends ServerTimedModel(idsite, serverTime) {
 
   /**
    * Add all the fields to the array in the right order

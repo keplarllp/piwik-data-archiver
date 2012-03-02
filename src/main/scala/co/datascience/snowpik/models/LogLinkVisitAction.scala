@@ -47,27 +47,27 @@ CREATE TABLE `piwik_log_link_visit_action` (
   KEY `index_idsite_servertime` (`idsite`,`server_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
-case class LogLinkVisitAction(
-  idlinkVa: Int,
-  idsite: Int,
-  idvisitor: Array[Byte],
-  serverTime: JTimestamp,
-  idvisit: Int,
-  idactionUrl: Int,
-  idactionUrlRef: Int,
-  idactionName: Int,
-  idactionNameRef: Int,
-  timeSpentRefAction: Int,
-  customVarK1: Option[String],
-  customVarV1: Option[String],
-  customVarK2: Option[String],
-  customVarV2: Option[String],
-  customVarK3: Option[String],
-  customVarV3: Option[String],
-  customVarK4: Option[String],
-  customVarV4: Option[String],
-  customVarK5: Option[String],
-  customVarV5: Option[String]
+class LogLinkVisitAction(
+  val idlinkVa: Int,
+  override val idsite: Int,
+  val idvisitor: Array[Byte],
+  override val serverTime: JTimestamp,
+  val idvisit: Int,
+  val idactionUrl: Int,
+  val idactionUrlRef: Int,
+  val idactionName: Int,
+  val idactionNameRef: Int,
+  val timeSpentRefAction: Int,
+  val customVarK1: Option[String],
+  val customVarV1: Option[String],
+  val customVarK2: Option[String],
+  val customVarV2: Option[String],
+  val customVarK3: Option[String],
+  val customVarV3: Option[String],
+  val customVarK4: Option[String],
+  val customVarV4: Option[String],
+  val customVarK5: Option[String],
+  val customVarV5: Option[String]
   ) extends ServerTimedModel(idsite, serverTime) {
 
   /**

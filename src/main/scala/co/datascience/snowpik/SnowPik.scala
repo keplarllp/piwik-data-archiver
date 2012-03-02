@@ -29,6 +29,7 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 // Phive
 import models._
+import models.PiwikSchemaPimps._
 import csv._
 
 /**
@@ -85,9 +86,8 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
+    // siteId used implicitly by ~>
     implicit val id = siteId
-
-    implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T](table)
 
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
@@ -98,7 +98,8 @@ case class SnowPik(config: Config,
     // TODO: this shouldn't be file specific (instead, let's apply the upload to all files in a given directory)
     // Finally let's upload if required
     if (upload) {
-      LogAction.uploadCsv(S3, SnowPikConfig.bucket)
+      println("Placeholder for upload")
+      // LogAction.uploadCsv(S3, SnowPikConfig.bucket)
     }
   }
 }

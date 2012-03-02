@@ -39,3 +39,13 @@ case class PiwikSchema(prefix: String) extends Schema {
   private def camelCase2LowerUnderscore(name: String) =
     name.toList.map(c => if(c.isUpper) "_" + c.toLower else c).mkString
 }
+
+/**
+ * Our pimps to add more functionality to our tables
+ */
+object PiwikSchemaPimps {
+
+  implicit def pimpLogAction(table: Table[LogAction]) = new PimpedLogAction(table)
+  implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T](table)
+  implicit def pimpLogVisit(table: Table[LogVisit]) = new PimpedLogVisit(table)
+}

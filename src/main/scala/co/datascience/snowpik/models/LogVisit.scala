@@ -203,18 +203,21 @@ class LogVisit(
     customVarV5,
     locationProvider
   )
+}
+
+class PimpedLogVisit(table: Table[LogVisit]) {
 
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile) {
+  def ~>(logFile: CsvFile)(implicit siteId: Int) {
 
     inTransaction {
-      from (this)(t =>
+      from (table)(t =>
         where(t.idsite === siteId)
         select(t)
         orderBy(t.visitLastActionTime)
-      ).toList foreach(logFile.writeRow(_.toArray))
+      ).toList foreach(lv => logFile.writeRow(lv.toArray))
     }
   }
 }

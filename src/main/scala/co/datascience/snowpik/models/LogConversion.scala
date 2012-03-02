@@ -66,9 +66,9 @@ CREATE TABLE `piwik_log_conversion` (
 */
 class LogConversion(
   val idvisit: Int,
-  val idsite: Int,
+  override val idsite: Int,
   val idvisitor: Array[Byte],
-  val serverTime: JTimestamp,
+  override val serverTime: JTimestamp,
   val idactionUrl: Option[Int],
   val idlinkVa: Option[Int],
   val refererVisitServerDate: Option[JDate],
