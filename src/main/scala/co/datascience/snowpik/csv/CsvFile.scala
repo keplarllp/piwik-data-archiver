@@ -34,17 +34,18 @@ abstract class CsvFile {
 
   val header: Array[String]
 
-  protected var writer: CSVWriter = _
+  protected val writers: Map[String, CSVWriter]
 
   /**
    * Initializes our CSVWriter object, writes out the
    * appropriate header row and returns it.
    */
   // TODO: add datestamping and location to the filename
-  def initCsv() {
+  def initCsv(): CSVWriter = {
 
-    writer = new CSVWriter(new FileWriter(filename), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
+    val writer = new CSVWriter(new FileWriter(filename), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
     writer.writeNext(header)
+    writer
   }
 
   /**
