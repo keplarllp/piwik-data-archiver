@@ -15,9 +15,9 @@ package csv
 
 object LogLinkVisitActionFile extends CsvFile {
 
-  val folder = "link-visit-actions"
+  val subDir = "link-visit-actions"
 
-  val header = Array(
+  val headerRow = Array(
     "idlink_va",
     "idsite",
     "idvisitor",

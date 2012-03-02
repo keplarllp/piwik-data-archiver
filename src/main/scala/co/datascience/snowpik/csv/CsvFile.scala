@@ -31,8 +31,8 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
  */
 abstract class CsvFile {
 
-  val folder: String
-  val header: Array[String]
+  val subDir: String
+  val headerRow: Array[String]
 
   protected var writer: Option[CSVWriter] = None
   protected var lastDate: Option[String] = None
@@ -50,8 +50,8 @@ abstract class CsvFile {
       writer = Some(initCsv(date))
     }
 
-    if (row.length != header.length)
-      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, header.length))
+    if (row.length != headerRow.length)
+      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))
 
     writer.get.writeNext(row)
     lastDate = Some(date)
@@ -64,15 +64,15 @@ abstract class CsvFile {
   protected def initCsv(date: String): CSVWriter = {
 
     // First setup the folder
-    val folder = "tables/%s".format(date)
-    new File(folder).mkdir() // TODO: add error handling
+    val dir = "tables/%s/dt=%s".format(subDir, date)
+    new File(dir).mkdir() // TODO: add error handling
 
     // Now set the full file path
-    val filePath = "%s/%s.log".format(folder, date)
+    val filePath = "%s/%s.log".format(dir, date)
 
     // Now initialize the CSVWriter, write the header and return it
     val w = new CSVWriter(new FileWriter(filePath), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
-    w.writeNext(header)
+    w.writeNext(headerRow)
     w
   }
 
@@ -89,7 +89,7 @@ abstract class CsvFile {
   def uploadCsv(s3: RestS3Service, bucket: String) {
 
     // Create the S3 object from the file
-    val file = new File(folder) // TODO: update this
+    val file = new File(subDir) // TODO: update this
     val s3Object = new S3Object(file)
 
     // Give the S3 object public ACL based on the owning bucket's ACL

@@ -15,9 +15,9 @@ package csv
 
 object LogConversionItemFile extends CsvFile {
 
-  val folder = "conversion-items"
+  val subDir = "conversion-items"
 
-  val header = Array(
+  val headerRow = Array(
     "idsite",
     "idvisitor",
     "server_time",

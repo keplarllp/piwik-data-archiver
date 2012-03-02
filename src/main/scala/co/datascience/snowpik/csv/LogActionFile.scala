@@ -15,9 +15,9 @@ package csv
 
 object LogActionFile extends CsvFile {
 
-  val folder = "actions"
+  val subDir = "actions"
 
-  val header = Array(
+  val headerRow = Array(
     "idaction",
     "name",
     "hash",
