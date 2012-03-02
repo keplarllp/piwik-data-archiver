@@ -56,7 +56,7 @@ class LogConversionItem(
   idactionCategory5: Int,
   price: Float, 
   quantity: Int, 
-  deleted: Boolean) extends Model {
+  deleted: Boolean) extends ServerTimedModel(idsite, serverTime) {
 
   /**
    * Add all the fields to the array in the right order

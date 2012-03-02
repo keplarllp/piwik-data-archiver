@@ -100,7 +100,7 @@ class LogConversion(
   val customVarV4: Option[String],
   val customVarK5: Option[String],
   val customVarV5: Option[String]
-  ) extends Model {
+  ) extends ServerTimedModel(idsite, serverTime) {
 
   /**
   * Add all the fields to the array in the right order

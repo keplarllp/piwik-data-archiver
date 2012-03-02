@@ -85,6 +85,8 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
+    implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T]
+
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
     PrefixedSchema.logConversionItem  ~> LogConversionItemFile

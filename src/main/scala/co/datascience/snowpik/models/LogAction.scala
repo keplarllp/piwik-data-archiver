@@ -46,13 +46,4 @@ case class LogAction(
    */
   def toArray: Array[String] =
     Array(this.idaction, this.name, this.hash, this.`type`)
-
-  /**
-   * Exports this table to .csv
-   */
-  def ~>(logFile: CsvFile) {
-    inTransaction {
-      from (this)(r => select(r)).toList foreach(la => logFile.writeRow(la.toArray))
-    }
-  }
 }

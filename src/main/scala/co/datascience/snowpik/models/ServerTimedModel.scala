@@ -25,7 +25,9 @@ import csv.CsvFile
 
 abstract class ServerTimedModel(
   val idsite: Int,
-  val serverTime: JTimestamp) extends Model {
+  val serverTime: JTimestamp) extends Model
+
+class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) {
 
   /**
    * Exports this table to .csv
@@ -33,7 +35,7 @@ abstract class ServerTimedModel(
   def ~>(logFile: CsvFile) {
 
     inTransaction {
-      from (this)(t =>
+      from (table)(t =>
         where(t.idsite === siteId)
         select(t)
         orderBy(t.serverTime)

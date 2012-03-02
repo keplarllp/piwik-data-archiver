@@ -68,7 +68,7 @@ case class LogLinkVisitAction(
   customVarV4: Option[String],
   customVarK5: Option[String],
   customVarV5: Option[String]
-  ) extends Model {
+  ) extends ServerTimedModel(idsite, serverTime) {
 
   /**
    * Add all the fields to the array in the right order

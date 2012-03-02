@@ -25,11 +25,6 @@ trait Model {
    */
   def toArray: Array[String]
 
-  /**
-   * Exports this table to .csv
-   */
-  def ~>(logFile: CsvFile): Unit
-
   // Simple conversions
   implicit def int2CsvString(i: Int): String = i.toString
   implicit def float2CsvString(f: Float): String = f.toString
