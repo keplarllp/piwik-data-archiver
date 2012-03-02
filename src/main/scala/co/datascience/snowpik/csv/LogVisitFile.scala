@@ -72,4 +72,6 @@ object LogVisitFile extends CsvFile {
     "custom_var_v5",
     "location_provider"
   )
+
+  val dateIndex = 10 // visit_last_action_time
 }

@@ -34,4 +34,6 @@ object LogConversionItemFile extends CsvFile {
     "quantity",
     "deleted"
   )
+
+  val dateIndex = 2 // server_time
 }

@@ -34,16 +34,22 @@ abstract class CsvFile {
 
   val header: Array[String]
 
-  protected val writers: Map[String, CSVWriter]
+  // Which field in the index is the dateIndex we use to partition our files?
+  val dateIndex: Int
+
+  protected var writer: Option[CSVWriter] = None
+  protected var lastTimestamp: Option[JTimestamp] = None
 
   /**
    * Initializes our CSVWriter object, writes out the
    * appropriate header row and returns it.
    */
-  // TODO: add datestamping and location to the filename
-  def initCsv(): CSVWriter = {
+  protected def initCsv(timestamp: JTimestamp): CSVWriter = {
 
-    val writer = new CSVWriter(new FileWriter(filename), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
+    // Check if a folder with the year-month exists. If not, create it.
+    // TODO
+
+    writer = new CSVWriter(new FileWriter(filename), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
     writer.writeNext(header)
     writer
   }
@@ -51,7 +57,13 @@ abstract class CsvFile {
   /**
    * Writes out a row to our CSV file.
    */
-  def writeRow(row: Array[String]) {
+  def writeRow(row: Array[String], timestamp: JTimestamp) {
+
+    // If timestamp doesn't match last row's, time to open a new file
+    if (!lastTimestamp.isDefined || lastTimestamp.get != timestamp) {
+      if (writer.isDefined) finalizeCsv()
+      writer = initCsv(timestamp)
+    }
 
     if (row.length != header.length)
       throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, header.length))

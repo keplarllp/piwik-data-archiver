@@ -23,4 +23,19 @@ object LogActionFile extends CsvFile {
     "hash",
     "type"
   )
+
+  val dateIndex = _ // Not used
+
+  /**
+   * Writes out a row to our CSV file.
+   * Overridden because this file is
+   * much simpler than the other four.
+   */
+  override def writeRow(row: Array[String]) {
+
+    if (row.length != header.length)
+      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, header.length))
+
+    writer.writeNext(row)
+  }
 }
