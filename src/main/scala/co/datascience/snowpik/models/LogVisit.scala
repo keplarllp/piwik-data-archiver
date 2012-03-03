@@ -205,7 +205,7 @@ class LogVisit(
   )
 }
 
-class PimpedLogVisit(table: Table[LogVisit]) {
+class PimpedLogVisit(table: Table[LogVisit]) extends Extractor[CsvFile] {
 
   /**
    * Exports this table to .csv

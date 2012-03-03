@@ -18,7 +18,7 @@ import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 
 // SnowPik
-import csv.CsvFile
+import csv.CsvFileNoTimestamp
 
 /*
 -- ----------------------------
@@ -48,12 +48,12 @@ case class LogAction(
     Array(this.idaction, this.name, this.hash, this.`type`)
 }
 
-class PimpedLogAction(table: Table[LogAction]) {
+class PimpedLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimestamp] {
 
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile)(implicit siteId: Int) {
+  def ~>(logFile: CsvFileNoTimestamp)(implicit siteId: Int) {
 
     inTransaction {
       from (table)(t =>

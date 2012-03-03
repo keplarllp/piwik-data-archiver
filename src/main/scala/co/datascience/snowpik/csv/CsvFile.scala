@@ -101,3 +101,19 @@ abstract class CsvFile {
     s3.putObject(bucket, s3Object)
   }
 }
+
+abstract class CsvFileNoTimestamp extends CsvFile {
+
+  /**
+   * Writes out a row to our CSV file.
+   * Overridden because this is much
+   * simpler than the standard behaviour.
+   */
+  def writeRow(row: Array[String]) {
+
+    if (row.length != headerRow.length)
+      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))
+
+    writer.get.writeNext(row)
+  }
+}

@@ -13,33 +13,13 @@
 package co.datascience.snowpik
 package models
 
-// Java
-import java.sql.{Timestamp => JTimestamp}
-
-// Squeryl
-import org.squeryl._
-import org.squeryl.PrimitiveTypeMode._
-
 // SnowPik
 import csv.CsvFile
 
-abstract class ServerTimedModel(
-  val idsite: Int,
-  val serverTime: JTimestamp) extends Model
-
-class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) extends Extractor[CsvFile] {
+trait Extractor[-F <: CsvFile] {
 
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile)(implicit siteId: Int) {
-
-    inTransaction {
-      from (table)(t =>
-        where(t.idsite === siteId)
-        select(t)
-        orderBy(t.serverTime)
-      ).toList foreach(st => logFile.writeRow(st.toArray, st.serverTime))
-    }
-  }
+  def ~>(logFile: F)(implicit siteId: Int)
 }
