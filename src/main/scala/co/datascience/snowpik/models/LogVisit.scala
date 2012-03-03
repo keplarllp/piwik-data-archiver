@@ -219,5 +219,6 @@ class PimpedLogVisit(table: Table[LogVisit]) extends Extractor[CsvFile] {
         orderBy(t.visitLastActionTime)
       ).toList foreach(lv => logFile.writeRow(lv.toArray, lv.visitLastActionTime))
     }
+    logFile.finalizeCsv() // Close the last file
   }
 }

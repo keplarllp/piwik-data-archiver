@@ -111,6 +111,8 @@ abstract class CsvFileNoTimestamp extends CsvFile {
    */
   def writeRow(row: Array[String]) {
 
+    if (writer.isEmpty) writer = Some(initCsv("all"))
+
     if (row.length != headerRow.length)
       throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))
 

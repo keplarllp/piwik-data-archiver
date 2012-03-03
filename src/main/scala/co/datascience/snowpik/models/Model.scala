@@ -16,7 +16,6 @@ package models
 // Java
 import java.util.{Date => JDate}
 import java.sql.{Timestamp => JTimestamp}
-import csv.CsvFile
 
 trait Model {
 

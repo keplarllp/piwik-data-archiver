@@ -60,5 +60,6 @@ class PimpedLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimest
         select(t)
       ).toList foreach(a => logFile.writeRow(a.toArray))
     }
+    logFile.finalizeCsv() // Close the last file
   }
 }

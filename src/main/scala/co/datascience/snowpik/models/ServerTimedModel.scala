@@ -41,5 +41,6 @@ class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) extends Ext
         orderBy(t.serverTime)
       ).toList foreach(st => logFile.writeRow(st.toArray, st.serverTime))
     }
+    logFile.finalizeCsv() // Close the last file
   }
 }
