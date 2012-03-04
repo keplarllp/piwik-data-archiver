@@ -29,7 +29,7 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 // Phive
 import models._
-import models.PiwikSchemaPimps._
+import models.ExtractablePimps._
 import csv._
 
 /**
@@ -79,7 +79,7 @@ case class SnowPik(config: Config,
 
   // Let's create our Amazon S3 client once
   private val creds = new AWSCredentials(SnowPikConfig.key, SnowPikConfig.secret)
-  private val S3 = new RestS3Service(creds)
+  implicit private val S3 = new RestS3Service(creds)
 
   /**
    * Executes the export
@@ -95,11 +95,13 @@ case class SnowPik(config: Config,
     PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
     PrefixedSchema.logVisit           ~> LogVisitFile
 
-    // TODO: this shouldn't be file specific (instead, let's apply the upload to all files in a given directory)
-    // Finally let's upload if required
+    // Upload if required
     if (upload) {
-      println("Placeholder for upload")
-      // LogAction.uploadCsv(S3, SnowPikConfig.bucket)
+      LogActionFile          --> SnowPikConfig.bucket
+      LogConversionFile      --> SnowPikConfig.bucket
+      LogConversionItemFile  --> SnowPikConfig.bucket
+      LogLinkVisitActionFile --> SnowPikConfig.bucket
+      LogVisitFile           --> SnowPikConfig.bucket
     }
   }
 }

@@ -31,11 +31,12 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
  */
 abstract class CsvFile {
 
-  val subDir: String
-  val headerRow: Array[String]
+  protected val subDir: String
+  private val dir = "tables/%s/".format(subDir)
+  protected val headerRow: Array[String]
 
   protected var writer: Option[CSVWriter] = None
-  protected var lastDate: Option[String] = None
+  private var lastDate: Option[String] = None
 
   /**
    * Writes out a row to our CSV file.
@@ -63,12 +64,12 @@ abstract class CsvFile {
    */
   protected def initCsv(date: String): CSVWriter = {
 
-    // First setup the folder
-    val dir = "tables/%s/dt=%s".format(subDir, date)
-    new File(dir).mkdir() // TODO: add error handling
+    // First setup the directory
+    val d = "%s/dt=%s".format(dir, date)
+    new File(d).mkdir() // TODO: add error handling
 
     // Now set the full file path
-    val filePath = "%s/%s.log".format(dir, date)
+    val filePath = "%s/%s.log".format(d, date)
 
     // Now initialize the CSVWriter, write the header and return it
     val w = new CSVWriter(new FileWriter(filePath), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
@@ -86,7 +87,21 @@ abstract class CsvFile {
   /**
    * Upload our CSV file.
    */
-  def uploadCsv(s3: RestS3Service, bucket: String) {
+  def -->(bucket: String)(implicit s3: RestS3Service) {
+
+    // Find all the files in our directory...
+
+    // TODO: make this relevant
+    def recursiveListFiles(f: File): Array[File] = {
+      val these = f.listFiles
+      these ++ these.filter(_.isDirectory).flatMap(recursiveListFiles)
+    }
+
+    // TODO: and this
+    val path = "/var/data/stuff/xyz.dat"
+    val base = "/var/data"
+    val relative = new File(base).toURI().relativize(new File(path).toURI()).getPath()
+    // relative == "stuff/xyz.dat"
 
     // Create the S3 object from the file
     val file = new File(subDir) // TODO: update this

@@ -43,9 +43,9 @@ case class PiwikSchema(prefix: String) extends Schema {
 /**
  * Our pimps to add more functionality to our tables
  */
-object PiwikSchemaPimps {
+object ExtractablePimps {
 
-  implicit def pimpLogAction(table: Table[LogAction]) = new PimpedLogAction(table)
-  implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new PimpedServerTimedModel[T](table)
-  implicit def pimpLogVisit(table: Table[LogVisit]) = new PimpedLogVisit(table)
+  implicit def pimpLogAction(table: Table[LogAction]) = new ExtractableLogAction(table)
+  implicit def pimpServerTimedModel[T <: ServerTimedModel](table: Table[T]) = new ExtractableServerTimedModel[T](table)
+  implicit def pimpLogVisit(table: Table[LogVisit]) = new ExtractableLogVisit(table)
 }

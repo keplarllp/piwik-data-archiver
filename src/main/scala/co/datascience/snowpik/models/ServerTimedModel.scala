@@ -27,7 +27,7 @@ abstract class ServerTimedModel(
   val idsite: Int,
   val serverTime: JTimestamp) extends Model
 
-class PimpedServerTimedModel[T <: ServerTimedModel](table: Table[T]) extends Extractor[CsvFile] {
+class ExtractableServerTimedModel[T <: ServerTimedModel](table: Table[T]) extends Extractor[CsvFile] {
 
   /**
    * Exports this table to .csv

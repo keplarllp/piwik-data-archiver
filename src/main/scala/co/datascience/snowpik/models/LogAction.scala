@@ -48,7 +48,7 @@ case class LogAction(
     Array(this.idaction, this.name, this.hash, this.`type`)
 }
 
-class PimpedLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimestamp] {
+class ExtractableLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimestamp] {
 
   /**
    * Exports this table to .csv
