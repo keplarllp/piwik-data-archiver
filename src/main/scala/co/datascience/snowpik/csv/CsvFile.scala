@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat
 import au.com.bytecode.opencsv._
 
 // Amazon S3
-import org.jets3t.service.model.S3Object
-import org.jets3t.service.acl.{Permission, GroupGrantee, AccessControlList}
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 /**
@@ -32,11 +30,13 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
 abstract class CsvFile {
 
   protected val subDir: String
-  private val dir = "tables/%s/".format(subDir)
   protected val headerRow: Array[String]
 
   protected var writer: Option[CSVWriter] = None
   private var lastDate: Option[String] = None
+
+  // Based on subDir. Lazy so we don't initialize it before this abstract class has been made concrete
+  private lazy val dir = "tables/%s".format(subDir)
 
   /**
    * Writes out a row to our CSV file.
@@ -64,15 +64,11 @@ abstract class CsvFile {
    */
   protected def initCsv(date: String): CSVWriter = {
 
-    // First setup the directory
-    val d = "%s/dt=%s".format(dir, date)
-    new File(d).mkdir() // TODO: add error handling
-
-    // Now set the full file path
-    val filePath = "%s/%s.log".format(d, date)
+    // Define the full file path
+    val file = "%s/day=%s".format(dir, date)
 
     // Now initialize the CSVWriter, write the header and return it
-    val w = new CSVWriter(new FileWriter(filePath), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
+    val w = new CSVWriter(new FileWriter(file), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
     w.writeNext(headerRow)
     w
   }
@@ -85,35 +81,14 @@ abstract class CsvFile {
   }
 
   /**
-   * Upload our CSV file.
+   * Upload our CSV files.
    */
-  def -->(bucket: String)(implicit s3: RestS3Service) {
+  def ->(bucket: String)(implicit s3: RestS3Service) {
 
-    // Find all the files in our directory...
-
-    // TODO: make this relevant
-    def recursiveListFiles(f: File): Array[File] = {
-      val these = f.listFiles
-      these ++ these.filter(_.isDirectory).flatMap(recursiveListFiles)
+    Option(new File(dir).listFiles) match {
+      case Some(logs) => logs.map(l => S3Utils.uploadFile(l, bucket, s3))
+      case None => println("No files to upload in %s folder, skipping".format(subDir))
     }
-
-    // TODO: and this
-    val path = "/var/data/stuff/xyz.dat"
-    val base = "/var/data"
-    val relative = new File(base).toURI().relativize(new File(path).toURI()).getPath()
-    // relative == "stuff/xyz.dat"
-
-    // Create the S3 object from the file
-    val file = new File(subDir) // TODO: update this
-    val s3Object = new S3Object(file)
-
-    // Give the S3 object public ACL based on the owning bucket's ACL
-    val publicAcl: AccessControlList = s3.getBucketAcl(bucket)
-    publicAcl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ)
-    s3Object.setAcl(publicAcl)
-
-    // Upload the file to the bucket
-    s3.putObject(bucket, s3Object)
   }
 }
 

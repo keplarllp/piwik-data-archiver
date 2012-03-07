@@ -67,7 +67,7 @@ case class SnowPik(config: Config,
     val secret         = upload.getString("secret")
     val bucket         = upload.getString("bucket")
   }
-
+             /*
   // Instantiate our schema with the appropriate table prefix
   private val PrefixedSchema = PiwikSchema(SnowPikConfig.prefix)
 
@@ -75,7 +75,7 @@ case class SnowPik(config: Config,
   Class.forName("com.mysql.jdbc.Driver")
     SessionFactory.concreteFactory = Some(() => Session.create(
       java.sql.DriverManager.getConnection(SnowPikConfig.connection, SnowPikConfig.username, SnowPikConfig.password), new MySQLAdapter)
-  )
+  )                     */
 
   // Let's create our Amazon S3 client once
   private val creds = new AWSCredentials(SnowPikConfig.key, SnowPikConfig.secret)
@@ -88,20 +88,20 @@ case class SnowPik(config: Config,
 
     // siteId used implicitly by ~>
     implicit val id = siteId
-
+                          /*
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
     PrefixedSchema.logConversionItem  ~> LogConversionItemFile
     PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
     PrefixedSchema.logVisit           ~> LogVisitFile
-
+                            */
     // Upload if required
     if (upload) {
-      LogActionFile          --> SnowPikConfig.bucket
-      LogConversionFile      --> SnowPikConfig.bucket
-      LogConversionItemFile  --> SnowPikConfig.bucket
-      LogLinkVisitActionFile --> SnowPikConfig.bucket
-      LogVisitFile           --> SnowPikConfig.bucket
+      LogActionFile          -> SnowPikConfig.bucket
+      LogConversionFile      -> SnowPikConfig.bucket
+      LogConversionItemFile  -> SnowPikConfig.bucket
+      LogLinkVisitActionFile -> SnowPikConfig.bucket
+      LogVisitFile           -> SnowPikConfig.bucket
     }
   }
 }
