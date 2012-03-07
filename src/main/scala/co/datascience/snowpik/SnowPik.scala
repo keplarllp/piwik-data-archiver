@@ -88,13 +88,13 @@ case class SnowPik(config: Config,
 
     // siteId used implicitly by ~>
     implicit val id = siteId
-                          /*
+
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
     PrefixedSchema.logConversionItem  ~> LogConversionItemFile
     PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
     PrefixedSchema.logVisit           ~> LogVisitFile
-                            */
+
     // Upload if required
     if (upload) {
       LogActionFile          -> SnowPikConfig.bucket
