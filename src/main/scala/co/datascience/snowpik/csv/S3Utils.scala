@@ -32,14 +32,11 @@ object S3Utils {
     if (!file.exists) throw new IllegalArgumentException("File with path %s does not exist".format(file.getPath))
     if (file.isDirectory) throw new IllegalArgumentException("%s is a directory not a file".format(file.getName))
 
-    println("%s -> %s/%s".format(file.getName, bucket, file.getPath))
-
     val s3Object = new S3Object(file)
 
     // Give the S3 object public ACL based on the owning bucket's ACL
-    val publicAcl: AccessControlList = s3.getBucketAcl(bucket)
-    publicAcl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ)
-    s3Object.setAcl(publicAcl)
+    val bucketAcl: AccessControlList = s3.getBucketAcl(bucket)
+    s3Object.setAcl(bucketAcl)
 
     // Upload the file to the bucket
     s3.putObject(bucket, s3Object)
