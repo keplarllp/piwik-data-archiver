@@ -41,6 +41,6 @@ class ExtractableServerTimedModel[T <: ServerTimedModel](table: Table[T]) extend
         orderBy(t.serverTime)
       ).toList foreach(st => logFile.writeRow(st.toArray, st.serverTime))
     }
-    logFile.finalizeCsv() // Close the last file
+    logFile.close() // Close the last file
   }
 }

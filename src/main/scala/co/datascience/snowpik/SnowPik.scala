@@ -67,7 +67,7 @@ case class SnowPik(config: Config,
     val secret         = upload.getString("secret")
     val bucket         = upload.getString("bucket")
   }
-             /*
+
   // Instantiate our schema with the appropriate table prefix
   private val PrefixedSchema = PiwikSchema(SnowPikConfig.prefix)
 
@@ -75,7 +75,7 @@ case class SnowPik(config: Config,
   Class.forName("com.mysql.jdbc.Driver")
     SessionFactory.concreteFactory = Some(() => Session.create(
       java.sql.DriverManager.getConnection(SnowPikConfig.connection, SnowPikConfig.username, SnowPikConfig.password), new MySQLAdapter)
-  )                     */
+  )
 
   // Let's create our Amazon S3 client once
   private val creds = new AWSCredentials(SnowPikConfig.key, SnowPikConfig.secret)

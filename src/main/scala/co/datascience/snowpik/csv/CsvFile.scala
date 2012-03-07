@@ -47,8 +47,8 @@ abstract class CsvFile {
 
     // If timestamp doesn't match last row's, time to open a new file
     if (lastDate.isEmpty || lastDate.get != date) {
-      if (writer.isDefined) finalizeCsv()
-      writer = Some(initCsv(date))
+      if (writer.isDefined) this.close()
+      writer = Some(this.open(date))
     }
 
     if (row.length != headerRow.length)
@@ -62,7 +62,7 @@ abstract class CsvFile {
    * Initializes our CSVWriter object, writes out the
    * appropriate header row and returns it.
    */
-  protected def initCsv(date: String): CSVWriter = {
+  protected def open(date: String): CSVWriter = {
 
     // Define the full file path
     val file = "%s/day=%s".format(dir, date)
@@ -76,7 +76,7 @@ abstract class CsvFile {
   /**
    * Finalise our CSV.
    */
-  def finalizeCsv() {
+  def close() {
     writer.get.close()
   }
 
@@ -86,7 +86,7 @@ abstract class CsvFile {
   def ->(bucket: String)(implicit s3: RestS3Service) {
 
     Option(new File(dir).listFiles) match {
-      case Some(logs) => logs.map(l => S3Utils.uploadFile(l, bucket, s3))
+      case Some(logs) => logs.map(f => S3Utils.uploadFile(f, bucket, s3))
       case None => println("No files to upload in %s folder, skipping".format(subDir))
     }
   }
@@ -101,7 +101,7 @@ abstract class CsvFileNoTimestamp extends CsvFile {
    */
   def writeRow(row: Array[String]) {
 
-    if (writer.isEmpty) writer = Some(initCsv("all"))
+    if (writer.isEmpty) writer = Some(this.open("all"))
 
     if (row.length != headerRow.length)
       throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))

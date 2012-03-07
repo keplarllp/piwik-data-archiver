@@ -60,6 +60,6 @@ class ExtractableLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoT
         select(t)
       ).toList foreach(a => logFile.writeRow(a.toArray))
     }
-    logFile.finalizeCsv() // Close the last file
+    logFile.close() // Close the last file
   }
 }
