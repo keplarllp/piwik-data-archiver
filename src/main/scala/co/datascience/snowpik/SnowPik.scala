@@ -86,8 +86,9 @@ case class SnowPik(config: Config,
    */
   def run(siteId: Int) {
 
-    // siteId used implicitly by ~>
+    // siteId and folder used implicitly by ~>
     implicit val id = siteId
+    implicit val folder = SnowPikConfig.folder
 
     PrefixedSchema.logAction          ~> LogActionFile
     PrefixedSchema.logConversion      ~> LogConversionFile
