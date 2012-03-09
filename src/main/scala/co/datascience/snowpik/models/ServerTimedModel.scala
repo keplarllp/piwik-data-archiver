@@ -32,7 +32,7 @@ class ExtractableServerTimedModel[T <: ServerTimedModel](table: Table[T]) extend
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile)(implicit siteId: Int) {
+  def ~>(logFile: CsvFile)(implicit siteId: Int, folder: String) {
 
     inTransaction {
       from (table)(t =>

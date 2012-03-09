@@ -36,19 +36,19 @@ abstract class CsvFile {
   private var lastDate: Option[String] = None
 
   // Based on subDir. Lazy so we don't initialize it before this abstract class has been made concrete
-  private lazy val dir = "tables/%s".format(subDir)
+  private lazy val dir = "tables/%s".format(subDir) // TODO: should make this OS-agnostic
 
   /**
    * Writes out a row to our CSV file.
    */
-  def writeRow(row: Array[String], timestamp: JTimestamp) {
+  def writeRow(row: Array[String], timestamp: JTimestamp)(implicit folder: String) {
 
     val date = new SimpleDateFormat("yyyy-MM-dd").format(timestamp)
 
     // If timestamp doesn't match last row's, time to open a new file
     if (lastDate.isEmpty || lastDate.get != date) {
       if (writer.isDefined) this.close()
-      writer = Some(this.open(date))
+      writer = Some(this.open(folder, date))
     }
 
     if (row.length != headerRow.length)
@@ -62,10 +62,10 @@ abstract class CsvFile {
    * Initializes our CSVWriter object, writes out the
    * appropriate header row and returns it.
    */
-  protected def open(date: String): CSVWriter = {
+  protected def open(folder: String, date: String): CSVWriter = {
 
-    // Define the full file path
-    val file = "%s/day=%s".format(dir, date)
+    // Define the full file path TODO: should make this OS-agnostic
+    val file = "%s%s/day=%s".format(folder, dir, date) // folder has trailing slash
 
     // Now initialize the CSVWriter, write the header and return it
     val w = new CSVWriter(new FileWriter(file), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
@@ -83,9 +83,11 @@ abstract class CsvFile {
   /**
    * Upload our CSV files.
    */
-  def ->(bucket: String)(implicit s3: RestS3Service) {
+  def ->(bucket: String)(implicit s3: RestS3Service, folder: String) {
 
-    Option(new File(dir).listFiles) match {
+    // TODO: need to join folder onto dir
+
+    Option(new File(folder + dir).listFiles) match { // TODO: should make this OS-agnostic
       case Some(logs) => logs.map(f => S3Utils.uploadFile(f, bucket, s3))
       case None => println("No files to upload in %s folder, skipping".format(subDir))
     }
@@ -99,9 +101,9 @@ abstract class CsvFileNoTimestamp extends CsvFile {
    * Overridden because this is much
    * simpler than the standard behaviour.
    */
-  def writeRow(row: Array[String]) {
+  def writeRow(row: Array[String])(implicit folder: String) {
 
-    if (writer.isEmpty) writer = Some(this.open("all"))
+    if (writer.isEmpty) writer = Some(this.open(folder, "all"))
 
     if (row.length != headerRow.length)
       throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))

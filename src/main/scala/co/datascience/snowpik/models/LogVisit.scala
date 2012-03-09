@@ -210,7 +210,7 @@ class ExtractableLogVisit(table: Table[LogVisit]) extends Extractor[CsvFile] {
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile)(implicit siteId: Int) {
+  def ~>(logFile: CsvFile)(implicit siteId: Int, folder: String) {
 
     inTransaction {
       from (table)(t =>

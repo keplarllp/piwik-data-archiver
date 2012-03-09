@@ -53,7 +53,7 @@ class ExtractableLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoT
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFileNoTimestamp)(implicit siteId: Int) {
+  def ~>(logFile: CsvFileNoTimestamp)(implicit siteId: Int, folder: String) {
 
     inTransaction {
       from (table)(t =>
