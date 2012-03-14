@@ -17,6 +17,10 @@ package models
 import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 
+// Scalaz
+import scalaz._
+import Scalaz._
+
 // SnowPik
 import csv.CsvFileNoTimestamp
 
@@ -46,6 +50,11 @@ case class LogAction(
    */
   def toArray: Array[String] =
     Array(this.idaction, this.name, this.hash, this.`type`)
+
+  /**
+   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   */
+  def this() = this(∅[Int], Some(∅[String]), ∅[Int], ∅[Int])
 }
 
 class ExtractableLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimestamp] {

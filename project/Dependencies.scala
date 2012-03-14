@@ -25,6 +25,7 @@ object Dependencies {
     val opencsv   = "2.0"
     val specs2    = "1.8"
     val jets3t	  = "0.8.1"
+    val scalaz    = "6.0.3"
 
     val squeryl   = "0.9.5-RC1"
     val mysql     = "5.1.15"
@@ -40,14 +41,17 @@ object Dependencies {
     val opencsv     = "net.sf.opencsv"             %  "opencsv"              % V.opencsv
 
     // Added for MySQL access
-    val squeryl     = "org.squeryl"                %% "squeryl"               % V.squeryl
-    val mysql       = "mysql"                      %  "mysql-connector-java"  % V.mysql
-    val jtds        = "net.sourceforge.jtds"       %  "jtds"                  % V.jtds
+    val squeryl     = "org.squeryl"                %% "squeryl"              % V.squeryl
+    val mysql       = "mysql"                      %  "mysql-connector-java" % V.mysql
+    val jtds        = "net.sourceforge.jtds"       %  "jtds"                 % V.jtds
 
     // Used for S3 upload
     val jets3t      = "net.java.dev.jets3t"        %  "jets3t"               % V.jets3t
 
     // Used for testing
     val specs2      = "org.specs2"                 %% "specs2"               % V.specs2      % "test"
+
+    // Added for (Ø) in Squeryl model default constructors
+    val scalaz      = "org.scalaz"                 %% "scalaz-core"          % V.scalaz
   }
 }

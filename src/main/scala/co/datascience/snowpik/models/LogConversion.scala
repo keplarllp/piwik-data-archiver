@@ -17,6 +17,10 @@ package models
 import java.util.{Date => JDate}
 import java.sql.{Timestamp => JTimestamp}
 
+// Scalaz
+import scalaz._
+import Scalaz._
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_conversion`
@@ -141,4 +145,46 @@ class LogConversion(
     customVarV4,
     customVarK5,
     customVarV5)
+
+  /**
+   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   */
+  def this() = this(
+    ∅[Int],
+    ∅[Int],
+    ∅[Array[Byte]],
+    new JTimestamp(System.currentTimeMillis),
+    Some(∅[Int]),
+    Some(∅[Int]),
+    Some(new JDate()),
+    Some(∅[Int]),
+    Some(∅[String]),
+    Some(∅[String]),
+    ∅[Boolean],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[String],
+    ∅[String],
+    ∅[String],
+    ∅[Int],
+    ∅[Int],
+    Some(∅[String]),
+    ∅[Int],
+    Some(∅[Float]),
+    Some(∅[Float]),
+    Some(∅[Float]),
+    Some(∅[Float]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String])
+  )
 }
+

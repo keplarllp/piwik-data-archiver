@@ -33,6 +33,7 @@ object SnowPikBuild extends Build {
         Libraries.opencsv,
         Libraries.specs2,
         Libraries.jets3t,
+        Libraries.scalaz,
         Libraries.squeryl,
         Libraries.mysql,
         Libraries.jtds
