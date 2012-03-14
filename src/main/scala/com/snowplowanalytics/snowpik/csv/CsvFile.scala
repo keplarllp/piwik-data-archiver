@@ -55,7 +55,7 @@ abstract class CsvFile {
     }
 
     if (row.length != headerRow.length)
-      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s)".format(row.length, headerRow.length))
+      throw new IllegalArgumentException("Fields in row (%s) do not match fields in header (%s) for table %s".format(row.length, headerRow.length, subDir))
 
     writer.get.writeNext(row)
     lastDate = Some(date)
