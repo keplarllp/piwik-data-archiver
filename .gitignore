@@ -3,6 +3,7 @@
 workspace.xml
 *.iml
 bin/
+tables/
 docs/
 target/
 lib_managed/
