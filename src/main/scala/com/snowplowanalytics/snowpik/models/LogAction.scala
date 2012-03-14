@@ -39,9 +39,9 @@ CREATE TABLE `piwik_log_action` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
 case class LogAction(
-  idaction: Int,
+  idaction: Long,
   name:     Option[String],
-  hash:     Int,
+  hash:     Long,
   `type`:   Int
   ) extends Model {
 
@@ -54,7 +54,7 @@ case class LogAction(
   /**
    * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
    */
-  def this() = this(∅[Int], Some(∅[String]), ∅[Int], ∅[Int])
+  def this() = this(∅[Long], Some(∅[String]), ∅[Long], ∅[Int])
 }
 
 class ExtractableLogAction(table: Table[LogAction]) extends Extractor[CsvFileNoTimestamp] {

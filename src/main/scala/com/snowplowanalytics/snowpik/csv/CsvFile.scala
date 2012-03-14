@@ -24,6 +24,9 @@ import au.com.bytecode.opencsv._
 // Amazon S3
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
+// SnowPik
+import s3.S3Utils
+
 /**
  * Abstract class for defining one of our five CSV flatfiles
  */
@@ -64,8 +67,12 @@ abstract class CsvFile {
    */
   protected def open(folder: String, date: String): CSVWriter = {
 
+    // Create the host folder (and parents) if they don't already exist TODO: should make this OS-agnostic
+    val f = new File("%s%s".format(folder, dir))
+    f.mkdirs()
+
     // Define the full file path TODO: should make this OS-agnostic
-    val file = "%s%s/day=%s".format(folder, dir, date) // folder has trailing slash
+    val file = "%s/day=%s".format(f.getPath, date) // folder has trailing slash
 
     // Now initialize the CSVWriter, write the header and return it
     val w = new CSVWriter(new FileWriter(file), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER)
