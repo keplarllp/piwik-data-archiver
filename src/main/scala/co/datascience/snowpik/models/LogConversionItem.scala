@@ -16,6 +16,10 @@ package models
 // Java
 import java.sql.{Timestamp => JTimestamp}
 
+// Scalaz
+import scalaz._
+import Scalaz._
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_conversion_item`
@@ -77,4 +81,25 @@ class LogConversionItem(
     price,
     quantity,
     deleted)
+
+  /**
+   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   */
+  def this() = this(
+    ∅[Int],
+    ∅[Array[Byte]],
+    new JTimestamp(System.currentTimeMillis),
+    ∅[Int],
+    ∅[String],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Float],
+    ∅[Int],
+    ∅[Boolean]
+  )
 }

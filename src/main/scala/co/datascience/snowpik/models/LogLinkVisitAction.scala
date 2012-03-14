@@ -16,6 +16,10 @@ package models
 // Java
 import java.sql.{Timestamp => JTimestamp}
 
+// Scalaz
+import scalaz._
+import Scalaz._
+
 /*
 -- ----------------------------
 -- Table structure for `piwik_log_link_visit_action`
@@ -94,4 +98,30 @@ class LogLinkVisitAction(
     customVarV4,
     customVarK5,
     customVarV5)
+
+  /**
+   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   */
+  def this() = this(
+    ∅[Int],
+    ∅[Int],
+    ∅[Array[Byte]],
+    new JTimestamp(System.currentTimeMillis),
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]) 
+  )
 }
