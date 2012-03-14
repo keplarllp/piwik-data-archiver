@@ -18,7 +18,11 @@ import java.sql.{Timestamp => JTimestamp}
 
 // Squeryl
 import org.squeryl._
-import org.squeryl.PrimitiveTypeMode._
+import PrimitiveTypeMode._
+
+// Scalaz
+import scalaz._
+import Scalaz._
 
 // SnowPlow
 import csv.CsvFile
@@ -202,6 +206,65 @@ class LogVisit(
     customVarK5,
     customVarV5,
     locationProvider
+  )
+
+  /**
+   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   */
+  def this() = this(
+    ∅[Int],
+    ∅[Int],
+    ∅[Array[Byte]],
+    ∅[String],
+    ∅[Boolean],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    new JTimestamp(System.currentTimeMillis),
+    new JTimestamp(System.currentTimeMillis),
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Int],
+    ∅[Boolean],
+    ∅[Boolean],
+    Some(∅[Boolean]),
+    Some(∅[String]),
+    ∅[String],
+    Some(∅[String]),
+    ∅[Array[Byte]],
+    ∅[String],
+    ∅[String],
+    ∅[String],
+    ∅[String],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Boolean],
+    ∅[Array[Byte]],
+    ∅[String],
+    ∅[String],
+    ∅[String],
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String]),
+    Some(∅[String])
   )
 }
 

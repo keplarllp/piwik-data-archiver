@@ -15,7 +15,7 @@ package models
 
 // Squeryl
 import org.squeryl._
-import org.squeryl.PrimitiveTypeMode._
+import PrimitiveTypeMode._
 
 // Scalaz
 import scalaz._
