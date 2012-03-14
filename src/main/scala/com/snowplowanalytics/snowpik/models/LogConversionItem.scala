@@ -29,7 +29,7 @@ CREATE TABLE `piwik_log_conversion_item` (
   `idsite` int(10) unsigned NOT NULL,
   `idvisitor` binary(8) NOT NULL,
   `server_time` datetime NOT NULL,
-  `idvisit` Long(10) unsigned NOT NULL,
+  `idvisit` int(10) unsigned NOT NULL,
   `idorder` varchar(100) NOT NULL,
   `idaction_sku` int(10) unsigned NOT NULL,
   `idaction_name` int(10) unsigned NOT NULL,

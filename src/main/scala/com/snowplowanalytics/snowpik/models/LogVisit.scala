@@ -93,8 +93,8 @@ CREATE TABLE `piwik_log_visit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 class LogVisit(
-  val idvisit: Int,
-  val idsite: Int,
+  val idvisit: Long,
+  val idsite: Long,
   val idvisitor: Array[Byte],
   val visitorLocaltime: String, // TODO: check this works
   val visitorReturning: Boolean,
@@ -104,10 +104,10 @@ class LogVisit(
   val visitorDaysSinceFirst: Int,
   val visitFirstActionTime: JTimestamp,
   val visitLastActionTime: JTimestamp,
-  val visitExitIdactionUrl: Int,
-  val visitExitIdactionName: Int,
-  val visitEntryIdactionUrl: Int,
-  val visitEntryIdactionName: Int,
+  val visitExitIdactionUrl: Long,
+  val visitExitIdactionName: Long,
+  val visitEntryIdactionUrl: Long,
+  val visitEntryIdactionName: Long,
   val visitTotalActions: Int,
   val visitTotalTime: Int,
   val visitGoalConverted: Boolean,
@@ -212,8 +212,8 @@ class LogVisit(
    * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
    */
   def this() = this(
-    ∅[Int],
-    ∅[Int],
+    ∅[Long],
+    ∅[Long],
     ∅[Array[Byte]],
     ∅[String],
     ∅[Boolean],
@@ -223,10 +223,10 @@ class LogVisit(
     ∅[Int],
     new JTimestamp(System.currentTimeMillis),
     new JTimestamp(System.currentTimeMillis),
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
     ∅[Int],
     ∅[Int],
     ∅[Boolean],
