@@ -10,28 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package co.datascience.snowpik
-package csv
+package com.snowplowanalytics.snowpik
+package models
 
-object LogConversionItemFile extends CsvFile {
+// SnowPik
+import csv.CsvFile
 
-  val subDir = "conversion-items"
+trait Extractor[-F <: CsvFile] {
 
-  val headerRow = Array(
-    "idsite",
-    "idvisitor",
-    "server_time",
-    "idvisit",
-    "idorder",
-    "idaction_sku",
-    "idaction_name",
-    "idaction_category",
-    "idaction_category2",
-    "idaction_category3",
-    "idaction_category4",
-    "idaction_category5",
-    "price",
-    "quantity",
-    "deleted"
-  )
+  /**
+   * Exports this table to .csv
+   */
+  def ~>(logFile: F)(implicit siteId: Int, folder: String)
 }

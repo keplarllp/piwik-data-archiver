@@ -10,33 +10,17 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package co.datascience.snowpik
+package com.snowplowanalytics.snowpik
 package csv
 
-object LogLinkVisitActionFile extends CsvFile {
+object LogActionFile extends CsvFileNoTimestamp {
 
-  val subDir = "link-visit-actions"
+  val subDir = "actions"
 
   val headerRow = Array(
-    "idlink_va",
-    "idsite",
-    "idvisitor",
-    "server_time",
-    "idvisit",
-    "idaction_url",
-    "idaction_url_ref",
-    "idaction_name",
-    "idaction_name_ref",
-    "time_spent_ref_action",
-    "custom_var_k1",
-    "custom_var_v1",
-    "custom_var_k2",
-    "custom_var_v2",
-    "custom_var_k3",
-    "custom_var_v3",
-    "custom_var_k4",
-    "custom_var_v4",
-    "custom_var_k5",
-    "custom_var_v5"
+    "idaction",
+    "name",
+    "hash",
+    "type"
   )
 }
