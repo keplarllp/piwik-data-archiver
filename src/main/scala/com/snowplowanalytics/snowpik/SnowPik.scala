@@ -36,8 +36,8 @@ import csv._
  * SnowPik performs the Piwik data export and upload
  */
 case class SnowPik(config: Config,
-                 period: TimePeriod.Value,
-                 upload: Boolean) {
+                   period: TimePeriod.Value,
+                   upload: Boolean) {
 
   /**
    * Immediately construct a SnowPikConfig object which
@@ -84,24 +84,24 @@ case class SnowPik(config: Config,
   /**
    * Executes the export
    */
-  def run(siteId: Int) {
+  def run(siteId: Long) {
 
     // siteId and folder used implicitly by ~>
     implicit val id = siteId
     implicit val folder = SnowPikConfig.folder
 
     PrefixedSchema.logAction          ~> LogActionFile
-    PrefixedSchema.logConversion      ~> LogConversionFile
     PrefixedSchema.logConversionItem  ~> LogConversionItemFile
     PrefixedSchema.logLinkVisitAction ~> LogLinkVisitActionFile
+    PrefixedSchema.logConversion      ~> LogConversionFile
     PrefixedSchema.logVisit           ~> LogVisitFile
 
     // Upload if required
     if (upload) {
       LogActionFile          -> SnowPikConfig.bucket
-      LogConversionFile      -> SnowPikConfig.bucket
       LogConversionItemFile  -> SnowPikConfig.bucket
       LogLinkVisitActionFile -> SnowPikConfig.bucket
+      LogConversionFile      -> SnowPikConfig.bucket
       LogVisitFile           -> SnowPikConfig.bucket
     }
   }

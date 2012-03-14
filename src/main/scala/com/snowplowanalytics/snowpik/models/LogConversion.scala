@@ -70,7 +70,7 @@ CREATE TABLE `piwik_log_conversion` (
 */
 class LogConversion(
   val idvisit: Int,
-  override val idsite: Int,
+  override val idsite: Long,
   val idvisitor: Array[Byte],
   override val serverTime: JTimestamp,
   val idactionUrl: Option[Int],
@@ -151,7 +151,7 @@ class LogConversion(
    */
   def this() = this(
     ∅[Int],
-    ∅[Int],
+    ∅[Long],
     ∅[Array[Byte]],
     new JTimestamp(System.currentTimeMillis),
     Some(∅[Int]),

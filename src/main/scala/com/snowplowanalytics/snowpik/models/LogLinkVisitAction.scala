@@ -52,16 +52,16 @@ CREATE TABLE `piwik_log_link_visit_action` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 class LogLinkVisitAction(
-  val idlinkVa: Int,
-  override val idsite: Int,
+  val idlinkVa: Long,
+  override val idsite: Long,
   val idvisitor: Array[Byte],
   override val serverTime: JTimestamp,
-  val idvisit: Int,
-  val idactionUrl: Int,
-  val idactionUrlRef: Int,
-  val idactionName: Int,
-  val idactionNameRef: Int,
-  val timeSpentRefAction: Int,
+  val idvisit: Long,
+  val idactionUrl: Long,
+  val idactionUrlRef: Long,
+  val idactionName: Long,
+  val idactionNameRef: Long,
+  val timeSpentRefAction: Long,
   val customVarK1: Option[String],
   val customVarV1: Option[String],
   val customVarK2: Option[String],
@@ -100,19 +100,19 @@ class LogLinkVisitAction(
     customVarV5)
 
   /**
-   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   * Zero-argument constructor that Longializes each Option field to a default Some() value using Scalaz
    */
   def this() = this(
-    ∅[Int],
-    ∅[Int],
+    ∅[Long],
+    ∅[Long],
     ∅[Array[Byte]],
     new JTimestamp(System.currentTimeMillis),
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
     Some(∅[String]),
     Some(∅[String]),
     Some(∅[String]),

@@ -21,5 +21,5 @@ trait Extractor[-F <: CsvFile] {
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: F)(implicit siteId: Int, folder: String)
+  def ~>(logFile: F)(implicit siteId: Long, folder: String)
 }

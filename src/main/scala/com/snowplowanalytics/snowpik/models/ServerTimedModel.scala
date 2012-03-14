@@ -24,7 +24,7 @@ import org.squeryl.PrimitiveTypeMode._
 import csv.CsvFile
 
 abstract class ServerTimedModel(
-  val idsite: Int,
+  val idsite: Long,
   val serverTime: JTimestamp) extends Model
 
 class ExtractableServerTimedModel[T <: ServerTimedModel](table: Table[T]) extends Extractor[CsvFile] {
@@ -32,7 +32,7 @@ class ExtractableServerTimedModel[T <: ServerTimedModel](table: Table[T]) extend
   /**
    * Exports this table to .csv
    */
-  def ~>(logFile: CsvFile)(implicit siteId: Int, folder: String) {
+  def ~>(logFile: CsvFile)(implicit siteId: Long, folder: String) {
 
     inTransaction {
       from (table)(t =>

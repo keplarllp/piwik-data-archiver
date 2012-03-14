@@ -29,7 +29,7 @@ CREATE TABLE `piwik_log_conversion_item` (
   `idsite` int(10) unsigned NOT NULL,
   `idvisitor` binary(8) NOT NULL,
   `server_time` datetime NOT NULL,
-  `idvisit` int(10) unsigned NOT NULL,
+  `idvisit` Long(10) unsigned NOT NULL,
   `idorder` varchar(100) NOT NULL,
   `idaction_sku` int(10) unsigned NOT NULL,
   `idaction_name` int(10) unsigned NOT NULL,
@@ -46,20 +46,20 @@ CREATE TABLE `piwik_log_conversion_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 class LogConversionItem(
-  override val idsite: Int,
+  override val idsite: Long,
   val idvisitor: Array[Byte],
   override val serverTime: JTimestamp,
-  val idvisit: Int,
+  val idvisit: Long,
   val idorder: String,
-  val idactionSku: Int,
-  val idactionName: Int,
-  val idactionCategory: Int,
-  val idactionCategory2: Int,
-  val idactionCategory3: Int,
-  val idactionCategory4: Int,
-  val idactionCategory5: Int,
+  val idactionSku: Long,
+  val idactionName: Long,
+  val idactionCategory: Long,
+  val idactionCategory2: Long,
+  val idactionCategory3: Long,
+  val idactionCategory4: Long,
+  val idactionCategory5: Long,
   val price: Float,
-  val quantity: Int,
+  val quantity: Long,
   val deleted: Boolean) extends ServerTimedModel(idsite, serverTime) {
 
   /**
@@ -83,23 +83,23 @@ class LogConversionItem(
     deleted)
 
   /**
-   * Zero-argument constructor that intializes each Option field to a default Some() value using Scalaz
+   * Zero-argument constructor that Longializes each Option field to a default Some() value using Scalaz
    */
   def this() = this(
-    ∅[Int],
+    ∅[Long],
     ∅[Array[Byte]],
     new JTimestamp(System.currentTimeMillis),
-    ∅[Int],
+    ∅[Long],
     ∅[String],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
-    ∅[Int],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
+    ∅[Long],
     ∅[Float],
-    ∅[Int],
+    ∅[Long],
     ∅[Boolean]
   )
 }
