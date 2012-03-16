@@ -6,6 +6,8 @@
 
 SnowPik, the SnowPlow-Piwik Connector is a command-line tool which dumps your [Piwik] [piwik] log data to .csv files and then uploads these files to [Amazon S3] [s3] ready for you to analyze using [SnowPlow] [snowplow]. SnowPik is written in Scala.
 
+**Current status: SnowPik is written, but currently the . **
+
 ## Health Warning
 
 For performance reasons, SnowPik talks directly to your [Piwik MySQL database] [schema] - if you want a version which uses the Piwik API, please vote for [this GitHub issue] [issue1].
@@ -24,9 +26,14 @@ To make full use of SnowPik, you will need:
 * Access to your your Piwik MySQL database from a computer with the Java runtime
 * An Amazon S3 account
 
-### 2. Download
+### 2. Download and install
 
-You can download SnowPik from this GitHub repository. Right-click on this [download link] [download] and click **Save As...**
+You can download the latest build of SnowPik from this GitHub repository. Right-click on this [download link] [download] and click **Save As...**, or alternatively:
+
+    $ sudo mkdir /opt/snowpik
+    $ cd /opt/snowpik
+    $ wget xxx
+
 
 ### 3. Setup MySQL access
 
@@ -89,13 +96,32 @@ This command processes all of your Piwik data up until the end of **yesterday** 
 
 Once you have uploaded your historical Piwik data to S3, you can setup a daily `cronjob` to export each day's new Piwik log file data to S3. To do this:
 
-    // TODO
+    $ sudo vi /etc/crontab
+
+And add the line:
+
+    0 5 * * *   root  /opt/snowpik/cronic /opt/snowpik/snowpik --period YESTERDAY
+
+Assuming that you have SnowPik installed in `/opt/snowpik`, this will run SnowPik every day at 5am, transferring the data Piwik collected yesterday into Amazon S3. `cronic` is a third-party wrapper script to improve `cron`'s email handling; it's bundled with SnowPik.  
 
 ## Full Usage Instructions
 
 The full capabilities of SnowPik are as per per the command-line usage:
 
-    // TODO
+    OPTIONS
+    -c filename
+    --config filename  Configuration file. Defaults to "resources/default.conf"
+                       (within .jar) if not set
+    -n
+    --noupload         Flags that the generated .csv files should not be uploaded
+                       to S3
+    -p time
+    --period time      Time period of data to extract. Either "yesterday" or
+                       "historic". NOT YET IMPLEMENTED
+    -s id
+    --site id          Piwik site id to extract data for. Defaults to 1    
+
+Please note that the `period` argument is yet to be implemented. SnowPik currently extracts **all** Piwik log data right up to the present moment.
 
 ## Copyright and License
 

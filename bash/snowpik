@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Simple bash wrapper around the Phive jarfile
+# Simple bash wrapper around the SnowPik jarfile
 #
 # Copyright (c) 2012 Orderly Ltd. All rights reserved.
 #
@@ -13,4 +13,4 @@
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
-java -jar ./target/scala-2.9.1/piwik-export-to-hive_2.9.1-0.1.min.jar "$@"
+java -jar snowpik-0.1.jar "$@"

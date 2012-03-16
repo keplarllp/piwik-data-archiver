@@ -78,7 +78,7 @@ object SnowPikApp {
   // Optional time period
   val period = parser.option[TimePeriod.Value](List("p", "period"),
                                                     "time",
-                                                    "Time period of data to extract. Either \"yesterday\" or \"historic\"") {
+                                                    "Time period of data to extract. Either \"yesterday\" or \"historic\". NOT YET IMPLEMENTED") {
     (p, opt) =>
 
       try {
