@@ -16,20 +16,19 @@ Note that you use this software at your own risk - Orderly Ltd takes no responsi
 
 ## Setup
 
-### 1. Before you Start
+### 1. Before you start
 
 To make full use of SnowPik, you will need:
 
 * A running Piwik installation
-* Access to your your Piwik MySQL database
+* Access to your your Piwik MySQL database from a computer with the Java runtime
 * An Amazon S3 account
-* A SnowPlow installation
 
 ### 2. Download
 
-    // TODO
+You can download SnowPik from this GitHub repository. Right-click on this [download link] [download] and click **Save As...**
 
-### 3. Setup MySQL Access
+### 3. Setup MySQL access
 
 Setup a dedicated MySQL user account for SnowPik, and grant the user `SELECT` (i.e. read-only) permissions on the five tables that it needs to read:
 
@@ -49,31 +48,34 @@ GRANT SELECT ON `piwik`.`piwik\_log\_conversion\_item` TO 'snowpik'@'localhost' 
 
 Next you need to create a configuration file, setting both your Piwik MySQL and Amazon S3 connection details. You can find a template configuration file within the .zip file.
 
-Here is an example configuration:
+Here is a configuration file template, please update this to your requirements:
 
 ```python
-#########################
-# SnowPik Configuration #
-#########################
+#################################
+# SnowPik Default Configuration #
+#################################
 
 snowpik {
   db {
-    username: ""
-    password: ""
-    prefix:   ""
-    database: ""
-    server:   ""
-    port:     ""
-
+    username: "PIWIK DB USERNAME"
+    password: "PIWIK DB PASSWORD"
+    prefix:   "PIWIK DB TABLE PREFIX EG piwik_"
+    database: "PIWIK DB NAME"
+    server:   "PIWIK DB SERVER EG localhost"
+    port:     "PIWIK DB PORT EG 3306"
   }
-  s3 {
-    key:      ""
-    secret:   ""
-    bucket:   ""
+  export {
+    folder:   "LOCAL FOLDER TO STORE LOGS"
+  }
+  upload {
+    key:      "AWS KEY ID"
+    secret:   "AWS SECRET ACCESS KEY"
+    bucket:   "AWS S3 BUCKET NAME"
   }
 }
 ```
-### 5. Run against your Historic Piwik Data
+
+### 5. Run against your historic Piwik data
 
 You can run SnowPik against your Piwik data collected to-date using this command: 
 
@@ -97,7 +99,7 @@ The full capabilities of SnowPik are as per per the command-line usage:
 
 ## Copyright and License
 
-SnowPlow-Piwik Connector is copyright 2012 Orderly Ltd.
+SnowPik, the SnowPlow-Piwik Connector is copyright 2012 Orderly Ltd.
 
 Licensed under the [Apache License, Version 2.0] [license] (the "License");
 you may not use this software except in compliance with the License.
@@ -111,6 +113,7 @@ limitations under the License.
 [logo]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/snowpik.png
 [snowplow]: http://www.keplarllp.com/blog/
 [piwik]: http://piwik.org
+[download]: http://TODO
 [issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
