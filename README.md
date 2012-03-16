@@ -32,8 +32,8 @@ You can download the latest build of SnowPik from this GitHub repository. Right-
 
     $ sudo mkdir /opt/snowpik
     $ cd /opt/snowpik
-    $ wget xxx
-
+    $ wget https://github.com/downloads/snowplow/snowplow-piwik-connector/snowpik-0.1.zip
+    $ unzip snowpik-0.1.zip
 
 ### 3. Setup MySQL access
 
@@ -139,7 +139,7 @@ limitations under the License.
 [logo]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/snowpik.png
 [snowplow]: http://www.keplarllp.com/blog/
 [piwik]: http://piwik.org
-[download]: http://TODO
+[download]: https://github.com/downloads/snowplow/snowplow-piwik-connector/snowpik-0.1.zip
 [issue1]: https://github.com/datascience/piwik-export-to-hive/issues/1
 [schema]: http://piwik.org/docs/plugins/database-schema/
 [s3]: http://aws.amazon.com/s3/
