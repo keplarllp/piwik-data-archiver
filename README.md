@@ -87,7 +87,7 @@ snowpik {
 You can run SnowPik against your Piwik data collected to-date using this command: 
 
 ```bash
-./snowpik --config snowpik.conf --period historic
+./snowpik.sh --config snowpik.conf --period historic
 ```
 
 This command processes all of your Piwik data up until the end of **yesterday** (based on your host computer's clock). Today's data is ignored because the log files for today will be as yet incomplete.
@@ -100,7 +100,7 @@ Once you have uploaded your historical Piwik data to S3, you can setup a daily `
 
 And add the line:
 
-    0 5 * * *   root  /opt/snowpik/cronic /opt/snowpik/snowpik --period YESTERDAY
+    0 5 * * *   root  /opt/snowpik/cronic /opt/snowpik/snowpik.sh --period YESTERDAY
 
 Assuming that you have SnowPik installed in `/opt/snowpik`, this will run SnowPik every day at 5am, transferring the data Piwik collected yesterday into Amazon S3. `cronic` is a third-party wrapper script to improve `cron`'s email handling; it's bundled with SnowPik.  
 
