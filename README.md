@@ -1,7 +1,5 @@
 # SnowPik: SnowPlow-Piwik Connector
 
-![logo] [logo]
-
 ## Overview
 
 SnowPik, the SnowPlow-Piwik Connector is a command-line tool which dumps your [Piwik] [piwik] log data to .csv files and then uploads these files to [Amazon S3] [s3] ready for you to analyze using [SnowPlow] [snowplow]. SnowPik is written in Scala.
@@ -136,7 +134,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[logo]: https://github.com/datascience/piwik-export-to-hive/raw/master/doc/snowpik.png
 [snowplow]: http://www.keplarllp.com/blog/
 [piwik]: http://piwik.org
 [download]: https://github.com/downloads/snowplow/snowplow-piwik-connector/snowpik-0.1.zip
