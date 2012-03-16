@@ -27,12 +27,13 @@ object S3Utils {
    * General-purpose procedure to upload a file to
    * an S3 bucket
    */
-  def uploadFile(file: File, bucket: String, s3: RestS3Service) {
+  def uploadFile(file: File, bucket: String, s3: RestS3Service, key: Option[String] = None) {
 
     if (!file.exists) throw new IllegalArgumentException("File with path %s does not exist".format(file.getPath))
     if (file.isDirectory) throw new IllegalArgumentException("%s is a directory not a file".format(file.getName))
 
     val s3Object = new S3Object(file)
+    if (key.isDefined) s3Object.setKey(key.get)
 
     // Give the S3 object public ACL based on the owning bucket's ACL
     val bucketAcl: AccessControlList = s3.getBucketAcl(bucket)

@@ -92,10 +92,10 @@ abstract class CsvFile {
    */
   def ->(bucket: String)(implicit s3: RestS3Service, folder: String) {
 
-    // TODO: need to join folder onto dir
+    // TODO: naming with dir, folder and subDir is all very confusing. Worth clarifying
 
     Option(new File(folder + dir).listFiles) match { // TODO: should make this OS-agnostic
-      case Some(logs) => logs.map(f => S3Utils.uploadFile(f, bucket, s3))
+      case Some(logs) => logs.map(f => S3Utils.uploadFile(f, bucket, s3, Some("%s/%s".format(dir, f.getName))))
       case None => println("No files to upload in %s folder, skipping".format(subDir))
     }
   }
