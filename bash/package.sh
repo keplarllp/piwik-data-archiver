@@ -21,17 +21,25 @@ SNOWPIK_DIR=${SCRIPT_DIR}/..
 VERSION=0.1
 MIN_JAR=${SNOWPIK_DIR}/target/scala-2.9.1/snowpik_2.9.1-${VERSION}.min.jar
 BUILD_DIR=/tmp/snowpik
+ZIP_FILE=${SNOWPIK_DIR}/snowpik-${VERSION}.zip
 
 # First let's package and Proguard it
 sbt package
 sbt proguard
 
 # Now let's put all the files into  
+if [ -d ${BUILD_DIR} ];then
+	rm -rf ${BUILD_DIR}
+fi
 mkdir ${BUILD_DIR}
-cp ${MIN_JAR} ${BUILD_DIR}
+cp ${MIN_JAR} ${BUILD_DIR}/snowpik-${VERSION}.jar
 cp ${SNOWPIK_DIR}/README.md ${BUILD_DIR}
 cp ${SNOWPIK_DIR}/LICENSE-2.0.txt ${BUILD_DIR}
-cp ${SCRIPT_DIR}/snowpik ${BUILD_DIR}
+cp ${SCRIPT_DIR}/snowpik.sh ${BUILD_DIR}
 cp ${SCRIPT_DIR}/cronic ${BUILD_DIR}
 
-zip ${BUILD_DIR} ${SNOWPIK_DIR}/snowpik-${VERSION}.zip
+if [ -f ${ZIP_FILE} ];then
+	rm ${ZIP_FILE}
+fi
+zip -rj ${ZIP_FILE} ${BUILD_DIR}/
+
